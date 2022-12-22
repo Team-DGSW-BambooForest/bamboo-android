@@ -13,4 +13,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "Bamboo-Android"
-include ':app'
+include(":app")
