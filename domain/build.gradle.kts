@@ -1,7 +1,9 @@
 plugins {
     id(Plugins.androidLibrary)
     id(Plugins.kotlinAndroid)
+    id(Plugins.kapt)
     id(Plugins.kt_lint) version Versions.KT_LINT
+    id(Plugins.hilt)
 }
 
 android {
@@ -31,4 +33,11 @@ dependencies {
     testImplementation(Test.JUNIT)
     androidTestImplementation(AndroidTest.ANDROID_JUNIT)
     androidTestImplementation(AndroidTest.ESPRESSO_CORE)
+
+    // Coroutines
+    implementation(Coroutines.COROUTINE_CORE)
+
+    // Dagger-Hilt
+    implementation(Hilt.HILT_ANDROID)
+    kapt(Hilt.HILT_COMPILER)
 }
