@@ -1,4 +1,4 @@
-package kr.hs.dgsw.bamboo.bamboo_android.ui.theme
+package kr.hs.dgsw.bamboo.bamboo_android.core.theme
 
 import androidx.compose.ui.graphics.Color
 

@@ -1,4 +1,4 @@
-package kr.hs.dgsw.bamboo.bamboo_android
+package kr.hs.dgsw.bamboo.bamboo_android.root
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,7 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import kr.hs.dgsw.bamboo.bamboo_android.ui.theme.BambooAndroidTheme
+import kr.hs.dgsw.bamboo.bamboo_android.core.theme.BambooAndroidTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
