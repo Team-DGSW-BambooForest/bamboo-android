@@ -75,6 +75,9 @@ dependencies {
     kapt(Hilt.HILT_COMPILER)
     implementation(Hilt.HILT_NAVIGATION)
 
+    // Coil
+    implementation(Coil.COIL_COMPOSE)
+
     implementation(project(AppConfig.domain))
     implementation(project(AppConfig.data))
 }

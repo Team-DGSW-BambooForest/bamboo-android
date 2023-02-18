@@ -37,3 +37,7 @@ object Hilt {
     const val HILT_COMPILER = "com.google.dagger:hilt-android-compiler:${Versions.HILT}"
     const val HILT_NAVIGATION = "androidx.hilt:hilt-navigation-compose:${Versions.HILT_NAVIGATION}"
 }
+
+object Coil {
+    const val COIL_COMPOSE = "io.coil-kt:coil-compose:${Versions.COIL}"
+}

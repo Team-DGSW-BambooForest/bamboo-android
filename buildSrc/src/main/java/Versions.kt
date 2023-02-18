@@ -20,4 +20,7 @@ object Versions {
     // Dagger-Hilt
     const val HILT = "2.44"
     const val HILT_NAVIGATION = "1.0.0"
+
+    // Coil
+    const val COIL = "2.2.2"
 }
