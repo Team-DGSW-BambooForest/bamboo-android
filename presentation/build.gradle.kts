@@ -1,7 +1,8 @@
- plugins {
-     id(Plugins.androidApplication)
-     id(Plugins.kotlinAndroid)
-     id(Plugins.kt_lint) version Versions.KT_LINT
+
+plugins {
+    id(Plugins.androidApplication)
+    id(Plugins.kotlinAndroid)
+    id(Plugins.kt_lint) version Versions.KT_LINT
 }
 
 android {
@@ -54,7 +55,6 @@ dependencies {
     implementation(AndroidX.ACTIVITY_COMPOSE)
     implementation(Compose.COMPOSE_UI)
     implementation(Compose.UI_TOOLING_PREVIEW)
-    implementation(Compose.ICONS)
     implementation(AndroidX.MATERIAL)
     testImplementation(Test.JUNIT)
     androidTestImplementation(AndroidTest.ANDROID_JUNIT)

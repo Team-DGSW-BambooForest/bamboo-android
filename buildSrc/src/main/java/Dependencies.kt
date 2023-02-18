@@ -8,7 +8,6 @@ object AndroidX {
 object Compose {
     const val COMPOSE_UI = "androidx.compose.ui:ui:${Versions.COMPOSE_UI}"
     const val UI_TOOLING_PREVIEW = "androidx.compose.ui:ui-tooling-preview:${Versions.COMPOSE_UI}"
-    const val ICONS = "androidx.compose.material:material-icons-extended:${Versions.COMPOSE}"
 
     const val UI_TOOLING = "androidx.compose.ui:ui-tooling:${Versions.COMPOSE_UI}"
     const val UI_TEST_MANIFEST = "androidx.compose.ui:ui-test-manifest:${Versions.COMPOSE_UI}"
