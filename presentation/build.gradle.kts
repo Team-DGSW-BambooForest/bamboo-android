@@ -59,7 +59,10 @@ dependencies {
     testImplementation(Test.JUNIT)
     androidTestImplementation(AndroidTest.ANDROID_JUNIT)
     androidTestImplementation(AndroidTest.ESPRESSO_CORE)
-    androidTestImplementation(AndroidTest.UI_TEST_JUNIT)
+    androidTestImplementation(Compose.UI_TEST_JUNIT)
     debugImplementation(Compose.UI_TOOLING)
     debugImplementation(Compose.UI_TEST_MANIFEST)
+
+    implementation(project(AppConfig.domain))
+    implementation(project(AppConfig.data))
 }
