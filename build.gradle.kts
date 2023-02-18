@@ -1,5 +1,10 @@
 plugins {
-    id ("com.android.application") version "7.3.1" apply false
-    id ("com.android.library") version "7.3.1" apply false
-    id ("org.jetbrains.kotlin.android") version "1.6.10" apply false
+    id(Plugins.androidApplication) version Versions.ANDROID apply false
+    id(Plugins.androidLibrary) version Versions.ANDROID apply false
+    id(Plugins.kotlinAndroid) version Versions.KOTLIN apply false
+    id(Plugins.kotlinJvm) version Versions.KOTLIN apply false
+}
+
+tasks.register("clean", Delete::class) {
+    delete(rootProject.buildDir)
 }
