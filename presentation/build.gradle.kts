@@ -78,6 +78,12 @@ dependencies {
     // Coil
     implementation(Coil.COIL_COMPOSE)
 
+    // Retrofit2
+    implementation(Retrofit.RETROFIT)
+    implementation(Retrofit.RETROFIT_GSON_CONVERTER)
+    implementation(Retrofit.OKHTTP)
+    implementation(Retrofit.OKHTTP_LOGGING_INTERCEPTOR)
+
     implementation(project(AppConfig.domain))
     implementation(project(AppConfig.data))
 }
