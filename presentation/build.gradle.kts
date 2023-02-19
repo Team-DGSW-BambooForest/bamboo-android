@@ -1,8 +1,9 @@
-
 plugins {
     id(Plugins.androidApplication)
     id(Plugins.kotlinAndroid)
+    id(Plugins.kapt)
     id(Plugins.kt_lint) version Versions.KT_LINT
+    id(Plugins.hilt)
 }
 
 android {
@@ -62,6 +63,26 @@ dependencies {
     androidTestImplementation(Compose.UI_TEST_JUNIT)
     debugImplementation(Compose.UI_TOOLING)
     debugImplementation(Compose.UI_TEST_MANIFEST)
+
+    // Coroutine
+    implementation(Coroutines.COROUTINE_ANDROID)
+
+    // Jetpack Navigation
+    implementation(Navigation.NAVIGATION_COMPOSE)
+
+    // Dagger-Hilt
+    implementation(Hilt.HILT_ANDROID)
+    kapt(Hilt.HILT_COMPILER)
+    implementation(Hilt.HILT_NAVIGATION)
+
+    // Coil
+    implementation(Coil.COIL_COMPOSE)
+
+    // Retrofit2
+    implementation(Retrofit.RETROFIT)
+    implementation(Retrofit.RETROFIT_GSON_CONVERTER)
+    implementation(Retrofit.OKHTTP)
+    implementation(Retrofit.OKHTTP_LOGGING_INTERCEPTOR)
 
     implementation(project(AppConfig.domain))
     implementation(project(AppConfig.data))
