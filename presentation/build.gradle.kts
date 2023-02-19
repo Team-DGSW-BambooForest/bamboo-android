@@ -57,6 +57,7 @@ dependencies {
     implementation(Compose.COMPOSE_UI)
     implementation(Compose.UI_TOOLING_PREVIEW)
     implementation(AndroidX.MATERIAL)
+    implementation("androidx.compose.animation:animation-graphics:1.1.1")
     testImplementation(Test.JUNIT)
     androidTestImplementation(AndroidTest.ANDROID_JUNIT)
     androidTestImplementation(AndroidTest.ESPRESSO_CORE)
