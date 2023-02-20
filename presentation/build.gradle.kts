@@ -84,6 +84,12 @@ dependencies {
     implementation(Retrofit.OKHTTP)
     implementation(Retrofit.OKHTTP_LOGGING_INTERCEPTOR)
 
+    // Orbit-MVI
+    implementation(OrbitMVI.ORBIT_CORE)
+    implementation(OrbitMVI.ORBIT_VIEWMODEL)
+    implementation(OrbitMVI.ORBIT_COMPOSE)
+    testImplementation(OrbitMVI.ORBIT_TEST)
+
     implementation(project(AppConfig.domain))
     implementation(project(AppConfig.data))
 }

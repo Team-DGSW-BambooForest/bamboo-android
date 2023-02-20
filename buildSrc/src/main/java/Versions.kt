@@ -27,4 +27,7 @@ object Versions {
     // Retrofit2
     const val OKHTTP = "4.10.0"
     const val RETROFIT = "2.9.0"
+
+    // Orbit-MVI
+    const val ORBIT_MVI = "4.6.0"
 }

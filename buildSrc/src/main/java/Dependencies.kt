@@ -48,3 +48,10 @@ object Retrofit {
     const val RETROFIT = "com.squareup.retrofit2:retrofit:${Versions.RETROFIT}"
     const val RETROFIT_GSON_CONVERTER = "com.squareup.retrofit2:converter-gson:${Versions.RETROFIT}"
 }
+
+object OrbitMVI {
+    const val ORBIT_CORE = "org.orbit-mvi:orbit-core:${Versions.ORBIT_MVI}"
+    const val ORBIT_VIEWMODEL = "org.orbit-mvi:orbit-viewmodel:${Versions.ORBIT_MVI}"
+    const val ORBIT_COMPOSE = "org.orbit-mvi:orbit-compose:${Versions.ORBIT_MVI}"
+    const val ORBIT_TEST = "org.orbit-mvi:orbit-test:${Versions.ORBIT_MVI}"
+}
