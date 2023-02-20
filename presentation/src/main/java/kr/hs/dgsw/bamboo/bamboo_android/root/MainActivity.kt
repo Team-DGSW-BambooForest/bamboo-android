@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalTextApi::class)
+
 package kr.hs.dgsw.bamboo.bamboo_android.root
 
 import android.os.Bundle
@@ -7,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.ExperimentalTextApi
 import dagger.hilt.android.AndroidEntryPoint
 import kr.hs.dgsw.bamboo.bamboo_android.core.theme.BambooAndroidTheme
 
