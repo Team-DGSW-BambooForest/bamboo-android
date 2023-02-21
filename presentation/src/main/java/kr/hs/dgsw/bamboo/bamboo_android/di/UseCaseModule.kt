@@ -6,6 +6,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kr.hs.dgsw.bamboo.domain.repository.PostRepository
 import kr.hs.dgsw.bamboo.domain.repository.UploadRepository
+import kr.hs.dgsw.bamboo.domain.usecase.CreatePostUseCase
 import kr.hs.dgsw.bamboo.domain.usecase.GetImageUseCase
 import kr.hs.dgsw.bamboo.domain.usecase.GetPostListUseCase
 import javax.inject.Singleton
@@ -23,4 +24,9 @@ object UseCaseModule {
     @Provides
     fun provideGetImageUseCase(repository: UploadRepository): GetImageUseCase =
         GetImageUseCase(repository)
+
+    @Singleton
+    @Provides
+    fun provideCreatePostUseCase(repository: PostRepository): CreatePostUseCase =
+        CreatePostUseCase(repository)
 }

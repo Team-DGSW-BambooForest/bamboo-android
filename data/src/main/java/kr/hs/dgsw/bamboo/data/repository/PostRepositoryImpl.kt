@@ -1,14 +1,20 @@
 package kr.hs.dgsw.bamboo.data.repository
 
-import kr.hs.dgsw.bamboo.data.network.remote.PostRemoteSource
-import kr.hs.dgsw.bamboo.domain.model.post.PostList
+import kr.hs.dgsw.bamboo.data.mapper.toEntity
+import kr.hs.dgsw.bamboo.data.mapper.toRequest
+import kr.hs.dgsw.bamboo.data.network.remote.PostRemoteDataSource
+import kr.hs.dgsw.bamboo.domain.entity.post.PostList
+import kr.hs.dgsw.bamboo.domain.param.post.CreatePostParam
 import kr.hs.dgsw.bamboo.domain.repository.PostRepository
 import javax.inject.Inject
 
 class PostRepositoryImpl @Inject constructor(
-    private val postRemoteSource: PostRemoteSource,
+    private val remote: PostRemoteDataSource,
 ) : PostRepository {
 
     override suspend fun getPostList(): PostList =
-        postRemoteSource.getPostList()
+        remote.getPostList().toEntity()
+
+    override suspend fun createPost(createPostParam: CreatePostParam) =
+        remote.createPost(createPostParam.toRequest())
 }
