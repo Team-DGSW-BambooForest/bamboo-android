@@ -4,9 +4,9 @@ import kr.hs.dgsw.bamboo.domain.repository.PostRepository
 import javax.inject.Inject
 
 class GetPostListUseCase @Inject constructor(
-    private val postRepository: PostRepository
+    private val repository: PostRepository
 ) {
-    suspend operator fun invoke() = kotlin.runCatching {
-        postRepository.getPostList()
+    suspend fun invoke() = kotlin.runCatching {
+        repository.getPostList()
     }
 }

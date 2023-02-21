@@ -21,12 +21,12 @@ import java.net.UnknownHostException
 
 const val EXPIRED_TOKEN_MESSAGE = "토큰이 입력되지 않았습니다."
 
-suspend inline fun <T> handleNetwork(
-    crossinline function: suspend () -> T,
+suspend inline fun <T> safeApiCall(
+    crossinline apiCall: suspend () -> T,
 ): T {
     return try {
         withContext(Dispatchers.IO) {
-            function()
+            apiCall.invoke()
         }
     } catch (e: HttpException) {
         throw when (e.code()) {
@@ -36,7 +36,7 @@ suspend inline fun <T> handleNetwork(
             else
                 UnAuthorizedException(e.message())
             403 -> ForbiddenException(e.message())
-            404 -> NotFoundException(e.message(),)
+            404 -> NotFoundException(e.message())
             408 -> TimeOutException(e.message())
             409 -> ConflictException(e.message())
             429 -> TooManyRequestsException(e.message())

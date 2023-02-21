@@ -5,7 +5,6 @@
 
 package kr.hs.dgsw.bamboo.bamboo_android.feature.main
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -177,7 +176,8 @@ fun PostItem(
                     modifier = Modifier
                         .size(40.dp)
                         .clip(CircleShape),
-                    model = if (profileImage == "http://dodam.b1nd.com/api/image/null/undefined.null") R.drawable.profile else profileImage,
+                    model = if (profileImage == "http://dodam.b1nd.com/api/image/null/undefined.null")
+                        R.drawable.profile_default else profileImage,
                     contentDescription = null
                 )
 

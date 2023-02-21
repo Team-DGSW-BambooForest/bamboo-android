@@ -16,11 +16,11 @@ object UseCaseModule {
 
     @Singleton
     @Provides
-    fun provideGetPostListUseCase(postRepository: PostRepository): GetPostListUseCase =
-        GetPostListUseCase(postRepository)
+    fun provideGetPostListUseCase(repository: PostRepository): GetPostListUseCase =
+        GetPostListUseCase(repository)
 
     @Singleton
     @Provides
-    fun provideGetImageUseCase(uploadRepository: UploadRepository): GetImageUseCase =
-        GetImageUseCase(uploadRepository)
+    fun provideGetImageUseCase(repository: UploadRepository): GetImageUseCase =
+        GetImageUseCase(repository)
 }

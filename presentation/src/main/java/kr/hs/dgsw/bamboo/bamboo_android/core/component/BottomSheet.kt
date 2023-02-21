@@ -87,7 +87,7 @@ fun BottomSheet(
                     modifier = Modifier
                         .size(34.dp)
                         .clip(CircleShape),
-                    model = "https://pbs.twimg.com/profile_images/1374979417915547648/vKspl9Et_400x400.jpg",
+                    model = R.drawable.profile,
                     contentDescription = null
                 )
 
