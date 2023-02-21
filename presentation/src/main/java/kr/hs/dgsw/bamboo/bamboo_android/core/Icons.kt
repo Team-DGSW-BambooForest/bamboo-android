@@ -3,15 +3,12 @@ package kr.hs.dgsw.bamboo.bamboo_android.core
 import androidx.compose.material.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-<<<<<<< Updated upstream
-=======
 import androidx.compose.ui.graphics.Color
->>>>>>> Stashed changes
 import androidx.compose.ui.res.painterResource
 import kr.hs.dgsw.bamboo.bamboo_android.R
+import kr.hs.dgsw.bamboo.bamboo_android.core.theme.ButtonGray
 
 @Composable
-<<<<<<< Updated upstream
 fun SearchIcon(
     modifier: Modifier = Modifier
 ) {
@@ -30,17 +27,40 @@ fun PlusIcon(
         painter = painterResource(id = R.drawable.plus),
         contentDescription = null,
         modifier = modifier,
-=======
-fun BackArrow(
-    contentDescription: String? = null,
+    )
+}
+
+@Composable
+fun BackArrowIcon(
     modifier: Modifier = Modifier,
-    tint: Color = Color.Unspecified
 ) {
     Icon(
         painter = painterResource(id = R.drawable.ic_back_arrow),
-        contentDescription = contentDescription,
+        contentDescription = null,
         modifier = modifier,
-        tint = tint
->>>>>>> Stashed changes
+    )
+}
+
+@Composable
+fun CameraIcon(
+    modifier: Modifier = Modifier,
+) {
+    Icon(
+        painter = painterResource(id = R.drawable.ic_camera),
+        contentDescription = null,
+        modifier = modifier,
+        tint = ButtonGray
+    )
+}
+
+@Composable
+fun ImageIcon(
+    modifier: Modifier = Modifier,
+) {
+    Icon(
+        painter = painterResource(id = R.drawable.ic_image),
+        contentDescription = null,
+        modifier = modifier,
+        tint = ButtonGray
     )
 }
