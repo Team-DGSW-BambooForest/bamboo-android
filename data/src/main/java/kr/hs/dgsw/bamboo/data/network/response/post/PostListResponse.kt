@@ -6,4 +6,4 @@ data class PostListResponse(
     @SerializedName("list")
     val list: List<PostResponse>,
 
-    )
+)

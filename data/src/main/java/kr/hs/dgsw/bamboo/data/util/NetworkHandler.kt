@@ -1,9 +1,20 @@
 package kr.hs.dgsw.bamboo.data.util
 
-import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import kr.hs.dgsw.bamboo.domain.exception.*
+import kr.hs.dgsw.bamboo.domain.exception.BadRequestException
+import kr.hs.dgsw.bamboo.domain.exception.ConflictException
+import kr.hs.dgsw.bamboo.domain.exception.ExpiredRefreshTokenException
+import kr.hs.dgsw.bamboo.domain.exception.ForbiddenException
+import kr.hs.dgsw.bamboo.domain.exception.NoConnectivityException
+import kr.hs.dgsw.bamboo.domain.exception.NoInternetException
+import kr.hs.dgsw.bamboo.domain.exception.NotFoundException
+import kr.hs.dgsw.bamboo.domain.exception.OtherHttpException
+import kr.hs.dgsw.bamboo.domain.exception.ServerException
+import kr.hs.dgsw.bamboo.domain.exception.TimeOutException
+import kr.hs.dgsw.bamboo.domain.exception.TooManyRequestsException
+import kr.hs.dgsw.bamboo.domain.exception.UnAuthorizedException
+import kr.hs.dgsw.bamboo.domain.exception.UnknownException
 import retrofit2.HttpException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException

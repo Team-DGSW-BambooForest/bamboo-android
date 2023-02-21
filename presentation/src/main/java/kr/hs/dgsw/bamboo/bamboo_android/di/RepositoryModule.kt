@@ -23,6 +23,6 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideUploadRepository(uploadRemoteSource: UploadRemoteSource): UploadRepository=
+    fun provideUploadRepository(uploadRemoteSource: UploadRemoteSource): UploadRepository =
         UploadRepositoryImpl(uploadRemoteSource)
 }

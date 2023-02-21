@@ -4,6 +4,5 @@ import kr.hs.dgsw.bamboo.domain.model.post.PostList
 
 interface PostRepository {
 
-    suspend fun getPostList(
-    ): PostList
+    suspend fun getPostList(): PostList
 }

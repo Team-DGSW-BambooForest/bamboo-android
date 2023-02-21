@@ -7,6 +7,5 @@ import retrofit2.http.GET
 interface PostService {
 
     @GET(BambooUrl.Post.LIST)
-    suspend fun getPostList(
-    ): PostListResponse
+    suspend fun getPostList(): PostListResponse
 }

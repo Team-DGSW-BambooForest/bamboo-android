@@ -4,6 +4,5 @@ import kr.hs.dgsw.bamboo.domain.model.post.PostList
 
 interface PostRemoteSource {
 
-    suspend fun getPostList(
-    ): PostList
+    suspend fun getPostList(): PostList
 }

@@ -1,4 +1,7 @@
-@file:OptIn(ExperimentalTextApi::class, ExperimentalMaterialApi::class)
+@file:OptIn(
+    ExperimentalTextApi::class, ExperimentalMaterialApi::class,
+    ExperimentalMaterialApi::class
+)
 
 package kr.hs.dgsw.bamboo.bamboo_android.feature.main
 
@@ -6,11 +9,27 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.*
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.IconButton
+import androidx.compose.material.ModalBottomSheetState
+import androidx.compose.material.ModalBottomSheetValue
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Surface
+import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -30,7 +49,12 @@ import kr.hs.dgsw.bamboo.bamboo_android.core.PlusIcon
 import kr.hs.dgsw.bamboo.bamboo_android.core.SearchIcon
 import kr.hs.dgsw.bamboo.bamboo_android.core.component.BottomSheet
 import kr.hs.dgsw.bamboo.bamboo_android.core.component.TopBar
-import kr.hs.dgsw.bamboo.bamboo_android.core.theme.*
+import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Background
+import kr.hs.dgsw.bamboo.bamboo_android.core.theme.BambooAndroidTheme
+import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Body1
+import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Body2
+import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Subtitle2
+import kr.hs.dgsw.bamboo.bamboo_android.core.theme.TextGray
 import org.orbitmvi.orbit.compose.collectAsState
 
 @Composable
@@ -48,10 +72,12 @@ fun MainScreen(
         Scaffold(
             modifier = Modifier.fillMaxSize(),
             backgroundColor = Background,
-            topBar = { MainTopBar(
-                scope,
-                sheetState
-            ) }
+            topBar = {
+                MainTopBar(
+                    scope,
+                    sheetState
+                )
+            }
         ) {
             LazyColumn(
                 modifier = Modifier.padding(top = 8.dp),
@@ -71,7 +97,6 @@ fun MainScreen(
                         content = post.content,
                         contentImage = state.contentImage
                     ) {
-
                     }
                 }
             }
@@ -112,7 +137,7 @@ fun MainTopBar(
             IconButton(
                 modifier = Modifier.size(34.dp),
                 onClick = {
-                          scope.launch { sheetState.show() }
+                    scope.launch { sheetState.show() }
                 },
             ) {
                 AsyncImage(
@@ -202,7 +227,6 @@ fun PostItem(
         }
     }
 }
-
 
 @Preview(showBackground = true, heightDp = 844, widthDp = 390)
 @Composable
