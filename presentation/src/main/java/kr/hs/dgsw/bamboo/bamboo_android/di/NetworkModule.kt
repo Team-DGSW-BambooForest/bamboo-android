@@ -7,6 +7,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kr.hs.dgsw.bamboo.bamboo_android.util.BambooApplication
 import kr.hs.dgsw.bamboo.data.network.service.PostService
+import kr.hs.dgsw.bamboo.data.network.service.UploadService
 import kr.hs.dgsw.bamboo.data.network.url.BambooUrl
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -25,6 +26,10 @@ object NetworkModule {
     fun providePostService(retrofit: Retrofit): PostService =
         retrofit.create(PostService::class.java)
 
+    @Singleton
+    @Provides
+    fun provideUploadService(retrofit: Retrofit): UploadService =
+        retrofit.create(UploadService::class.java)
 
     @Singleton
     @Provides

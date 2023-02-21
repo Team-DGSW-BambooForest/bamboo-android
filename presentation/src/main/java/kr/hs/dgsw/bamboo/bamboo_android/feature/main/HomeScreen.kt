@@ -59,15 +59,17 @@ fun MainScreen(
             ) {
                 itemsIndexed(
                     items = postList ?: emptyList(),
-                    key = { index, post ->
+                    key = { _, post ->
                         post.postId
                     }
-                ) { index, post ->
+                ) { _, post ->
+                    homeViewModel.getImage(post.postId)
                     PostItem(
                         profileImage = post.profileImage,
                         name = post.author,
                         createTime = post.createTime,
-                        content = post.content
+                        content = post.content,
+                        contentImage = state.contentImage
                     ) {
 
                     }

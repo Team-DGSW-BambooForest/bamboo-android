@@ -1,7 +1,6 @@
 package kr.hs.dgsw.bamboo.bamboo_android.core.component
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -15,7 +14,10 @@ import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import kr.hs.dgsw.bamboo.bamboo_android.R
-import kr.hs.dgsw.bamboo.bamboo_android.core.theme.*
+import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Aqua
+import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Body2
+import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Gray
+import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Subtitle1
 
 @ExperimentalTextApi
 @ExperimentalMaterialApi
