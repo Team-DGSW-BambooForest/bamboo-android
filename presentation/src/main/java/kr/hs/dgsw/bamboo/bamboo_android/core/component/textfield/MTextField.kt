@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalTextApi::class)
 
-package kr.hs.dgsw.bamboo.bamboo_android.core.component
+package kr.hs.dgsw.bamboo.bamboo_android.core.component.textfield
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background

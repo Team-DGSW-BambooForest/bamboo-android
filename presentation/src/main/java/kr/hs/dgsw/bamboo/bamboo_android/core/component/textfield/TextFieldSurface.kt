@@ -23,9 +23,10 @@ import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.KeyboardType
 import kr.hs.dgsw.bamboo.bamboo_android.core.ImageIcon
+import kr.hs.dgsw.bamboo.bamboo_android.core.component.textfield.MTextField
 
 @Composable
-fun MTextField() {
+fun TextFieldSurface() {
     var testValue1 by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
     val focusManager = LocalFocusManager.current
@@ -62,5 +63,5 @@ fun MTextField() {
 @Composable
 @Preview(showBackground = true)
 fun TextFieldPreview() {
-    MTextField()
+    TextFieldSurface()
 }

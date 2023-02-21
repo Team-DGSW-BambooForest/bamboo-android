@@ -2,10 +2,9 @@ package kr.hs.dgsw.bamboo.bamboo_android.feature.comment
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -13,7 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kr.hs.dgsw.bamboo.bamboo_android.R
 import kr.hs.dgsw.bamboo.bamboo_android.core.BackArrowIcon
-import kr.hs.dgsw.bamboo.bamboo_android.core.component.MTextField
+import kr.hs.dgsw.bamboo.bamboo_android.core.component.TextFieldSurface
 import kr.hs.dgsw.bamboo.bamboo_android.core.component.TopBar
 
 @Composable
@@ -46,12 +45,9 @@ fun CommentScreen() {
             Spacer(modifier = Modifier.padding(vertical = 8.dp))
             Divider(color = Color.LightGray, thickness = 1.dp)
             Spacer(modifier = Modifier.weight(1f))
-            MTextField()
+            TextFieldSurface()
         }
-//        Column(modifier = Modifier.padding(horizontal = 14.dp)) {
-//
-//        }
-
+//        LazyColumn(content = )
     }
 }
 

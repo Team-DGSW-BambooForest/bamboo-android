@@ -107,6 +107,29 @@ fun Subtitle2(
     )
 }
 
+//
+@ExperimentalTextApi
+@Composable
+fun Name1(
+    modifier: Modifier = Modifier,
+    text: String,
+    textColor: Color = Black,
+) {
+    Text(
+        modifier = modifier,
+        text = text,
+        color = textColor,
+        fontFamily = NotoSans,
+        fontWeight = FontWeight.Medium,
+        fontSize = 12.sp,
+        style = TextStyle(
+            platformStyle = PlatformTextStyle(
+                includeFontPadding = false
+            )
+        )
+    )
+}
+
 // Set of Material typography styles to start with
 val Typography = Typography(
     body1 = TextStyle(
