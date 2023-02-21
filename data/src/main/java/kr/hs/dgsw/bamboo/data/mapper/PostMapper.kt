@@ -16,7 +16,7 @@ fun PostResponse.toModel() = Post(
     author = this.author,
     profileImage = this.profileImage,
     content = this.content,
-    createTime = this.createTime,
+    createTime = "${createTime.split("-", "T")[0]}.${createTime.split("-", "T")[1]}.${createTime.split("-", "T")[2]}",
     hashTags = this.hashTags.map { it.toModel() }
 )
 

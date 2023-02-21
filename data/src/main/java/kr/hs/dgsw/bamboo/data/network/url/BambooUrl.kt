@@ -11,6 +11,6 @@ object BambooUrl {
     }
 
     object Upload {
-        const val POST_ID = "$UPLOAD{postId}"
+        const val POST_ID = "$UPLOAD/{postId}"
     }
 }

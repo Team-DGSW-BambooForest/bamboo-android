@@ -5,6 +5,7 @@
 
 package kr.hs.dgsw.bamboo.bamboo_android.feature.main
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -79,18 +80,15 @@ fun MainScreen(
                 )
             }
         ) {
-            LazyColumn(
-                modifier = Modifier.padding(top = 8.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-            ) {
+            LazyColumn {
                 itemsIndexed(
                     items = postList ?: emptyList(),
                     key = { _, post ->
                         post.postId
                     }
                 ) { _, post ->
-                    homeViewModel.getImage(post.postId)
                     PostItem(
+                        modifier = Modifier.padding(top = 8.dp),
                         profileImage = post.profileImage,
                         name = post.author,
                         createTime = post.createTime,
@@ -144,7 +142,7 @@ fun MainTopBar(
                     modifier = Modifier
                         .size(34.dp)
                         .clip(CircleShape),
-                    model = "https://pbs.twimg.com/profile_images/1374979417915547648/vKspl9Et_400x400.jpg",
+                    model = R.drawable.profile,
                     contentDescription = null
                 )
             }
@@ -154,6 +152,7 @@ fun MainTopBar(
 
 @Composable
 fun PostItem(
+    modifier: Modifier = Modifier,
     profileImage: String,
     name: String,
     createTime: String,
@@ -163,7 +162,7 @@ fun PostItem(
     onClick: () -> Unit,
 ) {
     Surface(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .wrapContentHeight()
             .background(Color.White)
@@ -178,7 +177,7 @@ fun PostItem(
                     modifier = Modifier
                         .size(40.dp)
                         .clip(CircleShape),
-                    model = profileImage,
+                    model = if (profileImage == "http://dodam.b1nd.com/api/image/null/undefined.null") R.drawable.profile else profileImage,
                     contentDescription = null
                 )
 
