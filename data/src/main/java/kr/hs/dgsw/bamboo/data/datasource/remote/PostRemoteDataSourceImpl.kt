@@ -15,7 +15,7 @@ class PostRemoteDataSourceImpl @Inject constructor(
         api.getPostList()
     }
 
-    override suspend fun createPost(createPostRequest: CreatePostRequest) = safeApiCall {
+    override suspend fun createPost(createPostRequest: CreatePostRequest): Long = safeApiCall {
         api.createPost(createPostRequest)
     }
 }

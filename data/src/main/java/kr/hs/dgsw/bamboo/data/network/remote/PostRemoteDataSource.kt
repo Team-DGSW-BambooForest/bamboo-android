@@ -7,5 +7,5 @@ interface PostRemoteDataSource {
 
     suspend fun getPostList(): PostListResponse
 
-    suspend fun createPost(createPostRequest: CreatePostRequest)
+    suspend fun createPost(createPostRequest: CreatePostRequest): Long
 }

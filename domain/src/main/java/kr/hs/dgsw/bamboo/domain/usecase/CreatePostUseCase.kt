@@ -7,7 +7,7 @@ import javax.inject.Inject
 class CreatePostUseCase @Inject constructor(
     private val repository: PostRepository
 ) {
-    suspend fun invoke(createPostParam: CreatePostParam) = kotlin.runCatching {
+    suspend operator fun invoke(createPostParam: CreatePostParam) = kotlin.runCatching {
         repository.createPost(createPostParam)
     }
 }

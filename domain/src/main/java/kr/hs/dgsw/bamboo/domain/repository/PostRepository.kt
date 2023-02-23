@@ -7,5 +7,5 @@ interface PostRepository {
 
     suspend fun getPostList(): PostList
 
-    suspend fun createPost(createPostParam: CreatePostParam)
+    suspend fun createPost(createPostParam: CreatePostParam): Long
 }

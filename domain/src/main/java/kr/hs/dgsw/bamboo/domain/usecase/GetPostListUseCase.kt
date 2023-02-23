@@ -6,7 +6,7 @@ import javax.inject.Inject
 class GetPostListUseCase @Inject constructor(
     private val repository: PostRepository
 ) {
-    suspend fun invoke() = kotlin.runCatching {
+    suspend operator fun invoke() = kotlin.runCatching {
         repository.getPostList()
     }
 }

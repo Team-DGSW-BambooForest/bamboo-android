@@ -15,5 +15,5 @@ interface PostService {
     @POST(BambooUrl.Post.CREATE)
     suspend fun createPost(
         @Body createPostRequest: CreatePostRequest
-    )
+    ): Long
 }

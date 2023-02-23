@@ -176,8 +176,7 @@ fun PostItem(
                     modifier = Modifier
                         .size(40.dp)
                         .clip(CircleShape),
-                    model = if (profileImage == "http://dodam.b1nd.com/api/image/null/undefined.null")
-                        R.drawable.profile_default else profileImage,
+                    model = profileImage,
                     contentDescription = null
                 )
 

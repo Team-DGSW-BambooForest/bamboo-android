@@ -6,7 +6,7 @@ import javax.inject.Inject
 class GetImageUseCase @Inject constructor(
     private val repository: UploadRepository
 ) {
-    suspend fun invoke(postId: Long) = kotlin.runCatching {
+    suspend operator fun invoke(postId: Long) = kotlin.runCatching {
         repository.getImageByPostId(postId)
     }
 }

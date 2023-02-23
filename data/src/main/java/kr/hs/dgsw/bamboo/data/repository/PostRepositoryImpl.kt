@@ -15,6 +15,6 @@ class PostRepositoryImpl @Inject constructor(
     override suspend fun getPostList(): PostList =
         remote.getPostList().toEntity()
 
-    override suspend fun createPost(createPostParam: CreatePostParam) =
+    override suspend fun createPost(createPostParam: CreatePostParam): Long =
         remote.createPost(createPostParam.toRequest())
 }
