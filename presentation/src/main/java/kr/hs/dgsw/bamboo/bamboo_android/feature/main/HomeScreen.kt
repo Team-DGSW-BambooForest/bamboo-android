@@ -42,6 +42,8 @@ import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -57,10 +59,12 @@ import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Body1
 import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Body2
 import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Subtitle2
 import kr.hs.dgsw.bamboo.bamboo_android.core.theme.TextGray
+import kr.hs.dgsw.bamboo.bamboo_android.root.NavRoute.Create
 import org.orbitmvi.orbit.compose.collectAsState
 
 @Composable
 fun MainScreen(
+    navController: NavController,
     homeViewModel: HomeViewModel = hiltViewModel(),
 ) {
     homeViewModel.getPostList()
@@ -97,7 +101,7 @@ fun MainScreen(
                         Spacer(modifier = Modifier.width(10.dp))
                         IconButton(
                             modifier = Modifier.size(34.dp),
-                            onClick = { /*TODO*/ },
+                            onClick = { navController.navigate(Create) },
                             content = { PlusIcon() }
                         )
                         Spacer(modifier = Modifier.width(10.dp))
@@ -163,38 +167,11 @@ fun PostItem(
             )
     ) {
         Column {
-<<<<<<< HEAD
-            Row {
-                AsyncImage(
-                    modifier = Modifier
-                        .size(40.dp)
-                        .clip(CircleShape),
-                    model = profileImage,
-                    contentDescription = null
-                )
-
-                Spacer(modifier = Modifier.width(12.dp))
-
-                Column {
-                    Spacer(modifier = Modifier.height(2.dp))
-
-                    Subtitle2(text = name)
-
-                    Spacer(modifier = Modifier.height(3.dp))
-
-                    Body2(
-                        text = createTime,
-                        textColor = TextGray
-                    )
-                }
-            }
-=======
             BambooProfile(
                 name = name,
                 profileImage = profileImage,
                 createTime = createTime
             )
->>>>>>> #3_main_screen
             Spacer(modifier = Modifier.height(12.dp))
 
             Body1(text = content)
@@ -229,6 +206,7 @@ fun PostItem(
 @Composable
 fun PreviewMainScreen() {
     BambooAndroidTheme {
-        MainScreen()
+        val navController = rememberNavController()
+        MainScreen(navController)
     }
 }

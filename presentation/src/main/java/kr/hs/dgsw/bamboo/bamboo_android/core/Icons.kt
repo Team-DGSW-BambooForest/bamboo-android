@@ -27,3 +27,14 @@ fun PlusIcon(
         modifier = modifier,
     )
 }
+
+@Composable
+fun BackIcon(
+    modifier: Modifier = Modifier,
+) {
+    Icon(
+        painter = painterResource(id = R.drawable.back),
+        contentDescription = null,
+        modifier = modifier,
+    )
+}
