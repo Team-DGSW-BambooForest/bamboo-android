@@ -12,7 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun TopBar(
+fun BambooTopBar(
     modifier: Modifier = Modifier,
     icon: @Composable () -> Unit,
     content: @Composable () -> Unit
@@ -20,11 +20,11 @@ fun TopBar(
     Surface(
         color = Color.White,
         modifier = modifier
-            .height(44.dp)
+            .height(52.dp)
             .fillMaxWidth()
-            .padding(horizontal = 14.dp)
     ) {
         Row(
+            modifier = Modifier.padding(horizontal = 14.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             icon()

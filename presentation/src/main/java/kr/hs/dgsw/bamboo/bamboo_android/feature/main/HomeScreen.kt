@@ -5,10 +5,10 @@
 
 package kr.hs.dgsw.bamboo.bamboo_android.feature.main
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.InteractionSource
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -48,8 +48,9 @@ import kotlinx.coroutines.launch
 import kr.hs.dgsw.bamboo.bamboo_android.R
 import kr.hs.dgsw.bamboo.bamboo_android.core.PlusIcon
 import kr.hs.dgsw.bamboo.bamboo_android.core.SearchIcon
-import kr.hs.dgsw.bamboo.bamboo_android.core.component.BottomSheet
-import kr.hs.dgsw.bamboo.bamboo_android.core.component.TopBar
+import kr.hs.dgsw.bamboo.bamboo_android.core.component.BambooBottomSheet
+import kr.hs.dgsw.bamboo.bamboo_android.core.component.BambooProfile
+import kr.hs.dgsw.bamboo.bamboo_android.core.component.BambooTopBar
 import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Background
 import kr.hs.dgsw.bamboo.bamboo_android.core.theme.BambooAndroidTheme
 import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Body1
@@ -63,21 +64,59 @@ fun MainScreen(
     homeViewModel: HomeViewModel = hiltViewModel(),
 ) {
     homeViewModel.getPostList()
+
     val state = homeViewModel.collectAsState().value
     val postList = state.postList?.list
 
     val sheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
     val scope = rememberCoroutineScope()
 
-    BottomSheet(sheetState) {
+    BambooBottomSheet(sheetState) {
         Scaffold(
             modifier = Modifier.fillMaxSize(),
             backgroundColor = Background,
             topBar = {
-                MainTopBar(
-                    scope,
-                    sheetState
-                )
+                BambooTopBar(
+                    modifier = Modifier.background(Color.White),
+                    icon = {
+                        Image(
+                            painter = painterResource(id = R.drawable.logo),
+                            contentDescription = null
+                        )
+                    }
+                ) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.End
+                    ) {
+                        IconButton(
+                            modifier = Modifier.size(34.dp),
+                            onClick = { /*TODO*/ },
+                            content = { SearchIcon() }
+                        )
+                        Spacer(modifier = Modifier.width(10.dp))
+                        IconButton(
+                            modifier = Modifier.size(34.dp),
+                            onClick = { /*TODO*/ },
+                            content = { PlusIcon() }
+                        )
+                        Spacer(modifier = Modifier.width(10.dp))
+                        IconButton(
+                            modifier = Modifier.size(34.dp),
+                            onClick = {
+                                scope.launch { sheetState.show() }
+                            },
+                        ) {
+                            AsyncImage(
+                                modifier = Modifier
+                                    .size(34.dp)
+                                    .clip(CircleShape),
+                                model = R.drawable.profile,
+                                contentDescription = null
+                            )
+                        }
+                    }
+                }
             }
         ) {
             LazyColumn {
@@ -97,54 +136,6 @@ fun MainScreen(
                     ) {
                     }
                 }
-            }
-        }
-    }
-}
-
-@Composable
-fun MainTopBar(
-    scope: CoroutineScope,
-    sheetState: ModalBottomSheetState
-) {
-    TopBar(
-        modifier = Modifier.background(Color.White),
-        icon = {
-            Image(
-                painter = painterResource(id = R.drawable.logo),
-                contentDescription = null
-            )
-        }
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.End
-        ) {
-            IconButton(
-                modifier = Modifier.size(34.dp),
-                onClick = { /*TODO*/ },
-                content = { SearchIcon() }
-            )
-            Spacer(modifier = Modifier.width(10.dp))
-            IconButton(
-                modifier = Modifier.size(34.dp),
-                onClick = { /*TODO*/ },
-                content = { PlusIcon() }
-            )
-            Spacer(modifier = Modifier.width(10.dp))
-            IconButton(
-                modifier = Modifier.size(34.dp),
-                onClick = {
-                    scope.launch { sheetState.show() }
-                },
-            ) {
-                AsyncImage(
-                    modifier = Modifier
-                        .size(34.dp)
-                        .clip(CircleShape),
-                    model = R.drawable.profile,
-                    contentDescription = null
-                )
             }
         }
     }
@@ -172,30 +163,11 @@ fun PostItem(
             )
     ) {
         Column {
-            Row {
-                AsyncImage(
-                    modifier = Modifier
-                        .size(40.dp)
-                        .clip(CircleShape),
-                    model = if (profileImage == "http://dodam.b1nd.com/api/image/null/undefined.null") R.drawable.profile else profileImage,
-                    contentDescription = null
-                )
-
-                Spacer(modifier = Modifier.width(12.dp))
-
-                Column {
-                    Spacer(modifier = Modifier.height(2.dp))
-
-                    Subtitle2(text = name)
-
-                    Spacer(modifier = Modifier.height(3.dp))
-
-                    Body2(
-                        text = createTime,
-                        textColor = TextGray
-                    )
-                }
-            }
+            BambooProfile(
+                name = name,
+                profileImage = profileImage,
+                createTime = createTime
+            )
             Spacer(modifier = Modifier.height(12.dp))
 
             Body1(text = content)
@@ -212,11 +184,10 @@ fun PostItem(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            val interactionSource = remember { MutableInteractionSource() }
             Body1(
                 modifier = Modifier
                     .clickable(
-                        interactionSource = interactionSource,
+                        interactionSource = MutableInteractionSource(),
                         indication = null,
                         onClick = onClick
                     ),
