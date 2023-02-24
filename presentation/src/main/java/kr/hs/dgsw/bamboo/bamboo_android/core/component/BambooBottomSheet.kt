@@ -16,11 +16,7 @@ import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.material.RadioButton
 import androidx.compose.material.RadioButtonDefaults
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -37,36 +33,34 @@ import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Subtitle1
 @ExperimentalTextApi
 @ExperimentalMaterialApi
 @Composable
-fun BottomSheet(
+fun BambooBottomSheet(
     sheetState: ModalBottomSheetState,
-    isLogin: Boolean = false,
     content: @Composable () -> Unit
 ) {
     var radioState by remember { mutableStateOf(true) }
 
     ModalBottomSheetLayout(
+        sheetShape = RoundedCornerShape(
+            topStart = 15.dp,
+            topEnd = 15.dp
+        ),
         sheetState = sheetState,
         sheetContent = {
             Spacer(modifier = Modifier.height(12.dp))
-
             Box(
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
                     .width(40.dp)
                     .height(4.dp)
                     .clip(CircleShape)
-                    .background(Color(0xFFDDDDDD)),
+                    .background(Color(0xFFDDDDDD))
             )
-
             Spacer(modifier = Modifier.height(12.dp))
-
             Subtitle1(
                 modifier = Modifier.align(Alignment.CenterHorizontally),
                 text = "내 프로필 선택"
             )
-
             Spacer(modifier = Modifier.height(12.dp))
-
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -74,14 +68,13 @@ fun BottomSheet(
                     .padding(horizontal = 14.dp)
                     .background(Color(0xFFF2F2F2)),
             )
-
             Spacer(modifier = Modifier.height(12.dp))
 
             Row(
+                verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 14.dp),
-                verticalAlignment = Alignment.CenterVertically
+                    .padding(horizontal = 14.dp)
             ) {
                 AsyncImage(
                     modifier = Modifier
@@ -90,13 +83,9 @@ fun BottomSheet(
                     model = R.drawable.profile,
                     contentDescription = null
                 )
-
                 Spacer(modifier = Modifier.width(12.dp))
-
                 Body2(text = "익명이")
-
                 Spacer(modifier = Modifier.weight(1F))
-
                 RadioButton(
                     selected = radioState,
                     onClick = { radioState = true },
@@ -113,7 +102,6 @@ fun BottomSheet(
                     .padding(horizontal = 14.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-
                 AsyncImage(
                     modifier = Modifier
                         .size(34.dp)
@@ -121,28 +109,23 @@ fun BottomSheet(
                     model = R.drawable.add,
                     contentDescription = null
                 )
-
                 Spacer(modifier = Modifier.width(12.dp))
-
                 Body2(
                     text = "도담도담 계정을 등록하세요!",
                     textColor = Gray
                 )
-
                 Spacer(modifier = Modifier.weight(1F))
-
                 RadioButton(
                     selected = radioState.not(),
                     onClick = { radioState = false },
                     colors = RadioButtonDefaults.colors(
                         selectedColor = Aqua,
                         unselectedColor = Gray
-                    ),
+                    )
                 )
             }
             Spacer(modifier = Modifier.height(18.dp))
-        },
-        sheetShape = RoundedCornerShape(topStart = 15.dp, topEnd = 15.dp)
+        }
     ) {
         content()
     }
