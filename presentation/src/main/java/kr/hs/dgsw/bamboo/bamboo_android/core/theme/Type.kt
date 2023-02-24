@@ -24,7 +24,7 @@ val NotoSans = FontFamily(
 fun Body1(
     modifier: Modifier = Modifier,
     text: String,
-    textColor: Color = TextBlack,
+    textColor: Color = Black,
 ) {
     Text(
         modifier = modifier,
@@ -46,7 +46,7 @@ fun Body1(
 fun Body2(
     modifier: Modifier = Modifier,
     text: String,
-    textColor: Color = TextBlack,
+    textColor: Color = Black,
 ) {
     Text(
         modifier = modifier,
@@ -68,7 +68,7 @@ fun Body2(
 fun Subtitle1(
     modifier: Modifier = Modifier,
     text: String,
-    textColor: Color = TextBlack,
+    textColor: Color = Black,
 ) {
     Text(
         modifier = modifier,
@@ -90,7 +90,7 @@ fun Subtitle1(
 fun Subtitle2(
     modifier: Modifier = Modifier,
     text: String,
-    textColor: Color = TextBlack,
+    textColor: Color = Black,
 ) {
     Text(
         modifier = modifier,
