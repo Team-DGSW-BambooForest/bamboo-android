@@ -4,21 +4,19 @@
 
 package kr.hs.dgsw.bamboo.bamboo_android.feature.create
 
+import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.ImageDecoder
 import android.net.Uri
-import android.os.Build
-import android.provider.MediaStore
-import android.util.Log
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -27,19 +25,16 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.ExperimentalTextApi
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.navigation.NavType
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import coil.compose.AsyncImage
 import kotlinx.coroutines.launch
 import kr.hs.dgsw.bamboo.bamboo_android.R
@@ -47,13 +42,18 @@ import kr.hs.dgsw.bamboo.bamboo_android.core.BackIcon
 import kr.hs.dgsw.bamboo.bamboo_android.core.component.BambooBottomSheet
 import kr.hs.dgsw.bamboo.bamboo_android.core.component.BambooTopBar
 import kr.hs.dgsw.bamboo.bamboo_android.core.theme.*
+import kr.hs.dgsw.bamboo.bamboo_android.root.NavRoute.HomePostId
+import org.orbitmvi.orbit.compose.collectAsState
+import org.orbitmvi.orbit.compose.collectSideEffect
 
 @ExperimentalTextApi
 @Composable
 fun CreateScreen(
     navController: NavController,
+    createViewModel: CreateViewModel = hiltViewModel()
 ) {
     val interactionSource = remember { MutableInteractionSource() }
+    val scrollState = rememberScrollState()
 
     val sheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
     val scope = rememberCoroutineScope()
@@ -69,6 +69,9 @@ fun CreateScreen(
         contract = ActivityResultContracts.GetContent(),
         onResult = { selectedImageUri = it }
     )
+
+    val state = createViewModel.collectAsState().value
+    createViewModel.collectSideEffect { handleSideEffect(navController, context, it) }
 
     BambooBottomSheet(sheetState) {
         Scaffold(
@@ -104,7 +107,7 @@ fun CreateScreen(
                                 .width(60.dp)
                                 .align(Alignment.CenterEnd),
                             shape = RoundedCornerShape(10.dp),
-                            onClick = { /*TODO*/ },
+                            onClick = { createViewModel.createPost(content) },
                             elevation = null,
                             contentPadding = PaddingValues(0.dp),
                             colors = ButtonDefaults.buttonColors(Color.Transparent)
@@ -126,7 +129,9 @@ fun CreateScreen(
             }
         ) {
             Box(
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier
+                    .fillMaxSize()
+                    .verticalScroll(scrollState)
             ) {
                 Column {
                     Box(
@@ -160,7 +165,7 @@ fun CreateScreen(
                         Subtitle2(text = "익명이")
                     }
 
-                    OutlinedTextField(
+                    TextField(
                         modifier = Modifier
                             .fillMaxWidth()
                             .focusRequester(focusRequester),
@@ -196,6 +201,8 @@ fun CreateScreen(
                             )
                         }
                     )
+
+                    Spacer(modifier = Modifier.height(60.dp))
                 }
 
                 Column(
@@ -280,6 +287,20 @@ fun CreateScreen(
                 }
             }
         }
+    }
+}
+
+private fun handleSideEffect(navController: NavController, context: Context, sideEffect: CreateSideEffect) {
+    when (sideEffect) {
+        is CreateSideEffect.NavigateToHome -> navController.navigate(HomePostId) {
+            navArgument("postId") {
+                type = NavType.StringType
+            }
+        }
+        is CreateSideEffect.Toast -> Toast.makeText(
+            context,
+            sideEffect.text, Toast.LENGTH_SHORT
+        ).show()
     }
 }
 
