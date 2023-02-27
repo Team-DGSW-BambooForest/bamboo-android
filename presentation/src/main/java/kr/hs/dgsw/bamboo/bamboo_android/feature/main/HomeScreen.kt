@@ -8,7 +8,6 @@ package kr.hs.dgsw.bamboo.bamboo_android.feature.main
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.InteractionSource
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -26,13 +25,11 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.IconButton
-import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -45,7 +42,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import kr.hs.dgsw.bamboo.bamboo_android.R
 import kr.hs.dgsw.bamboo.bamboo_android.core.PlusIcon
@@ -56,14 +52,12 @@ import kr.hs.dgsw.bamboo.bamboo_android.core.component.BambooTopBar
 import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Background
 import kr.hs.dgsw.bamboo.bamboo_android.core.theme.BambooAndroidTheme
 import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Body1
-import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Body2
-import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Subtitle2
 import kr.hs.dgsw.bamboo.bamboo_android.core.theme.TextGray
 import kr.hs.dgsw.bamboo.bamboo_android.root.NavRoute.Create
 import org.orbitmvi.orbit.compose.collectAsState
 
 @Composable
-fun MainScreen(
+fun HomeScreen(
     navController: NavController,
     homeViewModel: HomeViewModel = hiltViewModel(),
 ) {
@@ -207,6 +201,6 @@ fun PostItem(
 fun PreviewMainScreen() {
     BambooAndroidTheme {
         val navController = rememberNavController()
-        MainScreen(navController)
+        HomeScreen(navController)
     }
 }

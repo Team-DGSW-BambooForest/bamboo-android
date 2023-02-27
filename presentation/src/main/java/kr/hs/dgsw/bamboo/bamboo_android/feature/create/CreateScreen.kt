@@ -7,6 +7,7 @@ package kr.hs.dgsw.bamboo.bamboo_android.feature.create
 import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -292,9 +293,12 @@ fun CreateScreen(
 
 private fun handleSideEffect(navController: NavController, context: Context, sideEffect: CreateSideEffect) {
     when (sideEffect) {
-        is CreateSideEffect.NavigateToHome -> navController.navigate(HomePostId) {
-            navArgument("postId") {
-                type = NavType.StringType
+        is CreateSideEffect.NavigateToHome -> {
+            Log.d("TEST", "handleSideEffect: 화면 전환")
+            navController.navigate(HomePostId) {
+                navArgument("postId") {
+                    type = NavType.StringType
+                }
             }
         }
         is CreateSideEffect.Toast -> Toast.makeText(

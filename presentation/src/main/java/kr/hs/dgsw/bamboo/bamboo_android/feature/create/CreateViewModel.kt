@@ -33,6 +33,7 @@ class CreateViewModel @Inject constructor(
         )
             .onSuccess {
                 postSideEffect(CreateSideEffect.Toast("게시물 등록을 성공했습니다!"))
+                postSideEffect(CreateSideEffect.NavigateToHome)
 
                 reduce {
                     state.copy(
