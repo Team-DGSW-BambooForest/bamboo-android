@@ -4,13 +4,20 @@
 
 package kr.hs.dgsw.bamboo.bamboo_android.feature.create
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.ImageDecoder
 import android.net.Uri
+import android.os.Build
+import android.provider.MediaStore
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.launch
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -47,6 +54,7 @@ import kr.hs.dgsw.bamboo.bamboo_android.root.NavRoute.HomePostId
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 
+@RequiresApi(Build.VERSION_CODES.P)
 @ExperimentalTextApi
 @Composable
 fun CreateScreen(
@@ -60,16 +68,42 @@ fun CreateScreen(
     val scope = rememberCoroutineScope()
 
     var content by remember { mutableStateOf("") }
+
     val focusRequester = remember { FocusRequester() }
 
-    var selectedImageUri by remember { mutableStateOf<Uri?>(null) }
-    val selectedImageBitmap by remember { mutableStateOf<Bitmap?>(null) }
+    var imageBitmap by remember { mutableStateOf<Bitmap?>(null) }
     val context = LocalContext.current
 
-    val imagePickerLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.GetContent(),
-        onResult = { selectedImageUri = it }
-    )
+
+
+    val takePhotoFromCameraLauncher =
+        rememberLauncherForActivityResult(ActivityResultContracts.TakePicturePreview()) { takenPhoto ->
+            takenPhoto?.let {
+                imageBitmap = it
+            } ?: shortToast(context, "이미지가 저장되지 않았습니다.")
+        }
+
+    val takePhotoFromAlbumLauncher =
+        rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                result.data?.data?.let { uri ->
+                    imageBitmap = uri.parseBitmap(context)
+                } ?: shortToast(context, "이미지를 불러오지 못했습니다.")
+            } else if (result.resultCode != Activity.RESULT_CANCELED) {
+                shortToast(context, "이미지를 불러오지 못했습니다.")
+            }
+    }
+
+    val takePhotoFromAlbumIntent =
+        Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI).apply {
+            type = "image/*"
+            action = Intent.ACTION_GET_CONTENT
+            putExtra(
+                Intent.EXTRA_MIME_TYPES,
+                arrayOf("image/jpeg", "image/png", "image/bmp", "image/webp")
+            )
+            putExtra(Intent.EXTRA_ALLOW_MULTIPLE, false)
+        }
 
     val state = createViewModel.collectAsState().value
     createViewModel.collectSideEffect { handleSideEffect(navController, context, it) }
@@ -210,13 +244,13 @@ fun CreateScreen(
                     modifier = Modifier.align(Alignment.BottomCenter)
                 ) {
 
-                    selectedImageUri?.let { uri ->
+                    imageBitmap?.let { bitmap ->
                         AsyncImage(
                             modifier = Modifier
                                 .padding(14.dp)
                                 .size(100.dp)
                                 .clip(RoundedCornerShape(20.dp)),
-                            model = uri,
+                            model = bitmap,
                             contentDescription = null,
                             contentScale = ContentScale.Crop
                         )
@@ -239,7 +273,7 @@ fun CreateScreen(
                                     interactionSource = interactionSource,
                                     indication = null
                                 ) {
-
+                                    takePhotoFromCameraLauncher.launch()
                                 },
                         ) {
                             AsyncImage(
@@ -264,7 +298,7 @@ fun CreateScreen(
                                     interactionSource = interactionSource,
                                     indication = null
                                 ) {
-                                    imagePickerLauncher.launch("image/*")
+                                    takePhotoFromAlbumLauncher.launch(takePhotoFromAlbumIntent)
 
                                 }
                         ) {
@@ -301,13 +335,28 @@ private fun handleSideEffect(navController: NavController, context: Context, sid
                 }
             }
         }
-        is CreateSideEffect.Toast -> Toast.makeText(
-            context,
-            sideEffect.text, Toast.LENGTH_SHORT
-        ).show()
+        is CreateSideEffect.Toast -> shortToast(context, sideEffect.text)
     }
 }
 
+private fun shortToast(context: Context, text: String) {
+    Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
+}
+
+@RequiresApi(Build.VERSION_CODES.P)
+private fun Uri.parseBitmap(context: Context): Bitmap {
+    return when (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) { // 28
+        true -> {
+            val source = ImageDecoder.createSource(context.contentResolver, this)
+            ImageDecoder.decodeBitmap(source)
+        }
+        else -> {
+            MediaStore.Images.Media.getBitmap(context.contentResolver, this)
+        }
+    }
+}
+
+@RequiresApi(Build.VERSION_CODES.P)
 @Composable
 @Preview(showBackground = true)
 fun CreateScreenPreview() {
