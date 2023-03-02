@@ -1,9 +1,9 @@
 package kr.hs.dgsw.bamboo.data.datasource.remote
 
 import kr.hs.dgsw.bamboo.data.network.remote.UploadRemoteDataSource
-import kr.hs.dgsw.bamboo.data.network.request.post.UploadImageRequest
 import kr.hs.dgsw.bamboo.data.network.service.UploadService
 import kr.hs.dgsw.bamboo.data.util.safeApiCall
+import okhttp3.MultipartBody
 import javax.inject.Inject
 
 class UploadRemoteDataSourceImpl @Inject constructor(
@@ -14,10 +14,10 @@ class UploadRemoteDataSourceImpl @Inject constructor(
         api.getImageByPostId(postId)
     }
 
-    override suspend fun postImageByPostId(
+    override suspend fun postImage(
         postId: Long,
-        uploadImageRequest: UploadImageRequest
+        image: MultipartBody.Part
     ) = safeApiCall {
-        api.postImageByPostId(postId, uploadImageRequest)
+        api.postImageByPostId(postId, image)
     }
 }

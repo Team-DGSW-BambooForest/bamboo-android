@@ -1,7 +1,7 @@
 package kr.hs.dgsw.bamboo.data.network.service
 
-import kr.hs.dgsw.bamboo.data.network.request.post.UploadImageRequest
 import kr.hs.dgsw.bamboo.data.network.url.BambooUrl
+import okhttp3.MultipartBody
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Multipart
@@ -16,9 +16,10 @@ interface UploadService {
         @Path("postId") postId: Long
     ): String
 
+    @Multipart
     @POST(BambooUrl.Upload.POST_ID)
     suspend fun postImageByPostId(
         @Path("postId") postId: Long,
-        @Body image: UploadImageRequest
+        @Part image: MultipartBody.Part
     )
 }

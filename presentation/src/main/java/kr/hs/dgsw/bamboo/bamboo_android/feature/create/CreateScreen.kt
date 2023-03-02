@@ -54,13 +54,13 @@ import kr.hs.dgsw.bamboo.bamboo_android.root.NavRoute.HomePostId
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 
-@RequiresApi(Build.VERSION_CODES.P)
 @ExperimentalTextApi
 @Composable
 fun CreateScreen(
     navController: NavController,
-    createViewModel: CreateViewModel = hiltViewModel()
+    createViewModel: CreateViewModel = hiltViewModel(),
 ) {
+
     val interactionSource = remember { MutableInteractionSource() }
     val scrollState = rememberScrollState()
 
@@ -74,39 +74,12 @@ fun CreateScreen(
     var imageBitmap by remember { mutableStateOf<Bitmap?>(null) }
     val context = LocalContext.current
 
-
-
-    val takePhotoFromCameraLauncher =
-        rememberLauncherForActivityResult(ActivityResultContracts.TakePicturePreview()) { takenPhoto ->
-            takenPhoto?.let {
-                imageBitmap = it
-            } ?: shortToast(context, "이미지가 저장되지 않았습니다.")
-        }
-
-    val takePhotoFromAlbumLauncher =
-        rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                result.data?.data?.let { uri ->
-                    imageBitmap = uri.parseBitmap(context)
-                } ?: shortToast(context, "이미지를 불러오지 못했습니다.")
-            } else if (result.resultCode != Activity.RESULT_CANCELED) {
-                shortToast(context, "이미지를 불러오지 못했습니다.")
-            }
-    }
-
-    val takePhotoFromAlbumIntent =
-        Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI).apply {
-            type = "image/*"
-            action = Intent.ACTION_GET_CONTENT
-            putExtra(
-                Intent.EXTRA_MIME_TYPES,
-                arrayOf("image/jpeg", "image/png", "image/bmp", "image/webp")
-            )
-            putExtra(Intent.EXTRA_ALLOW_MULTIPLE, false)
-        }
-
     val state = createViewModel.collectAsState().value
     createViewModel.collectSideEffect { handleSideEffect(navController, context, it) }
+
+    val takePhotoFromAlbumLauncher = rememberLauncherForActivityResult() {
+
+    }
 
     BambooBottomSheet(sheetState) {
         Scaffold(
@@ -273,7 +246,7 @@ fun CreateScreen(
                                     interactionSource = interactionSource,
                                     indication = null
                                 ) {
-                                    takePhotoFromCameraLauncher.launch()
+                                    TODO("포토 추가")
                                 },
                         ) {
                             AsyncImage(
@@ -298,7 +271,7 @@ fun CreateScreen(
                                     interactionSource = interactionSource,
                                     indication = null
                                 ) {
-                                    takePhotoFromAlbumLauncher.launch(takePhotoFromAlbumIntent)
+                                    TODO("앨범 추가")
 
                                 }
                         ) {
@@ -325,38 +298,21 @@ fun CreateScreen(
     }
 }
 
-private fun handleSideEffect(navController: NavController, context: Context, sideEffect: CreateSideEffect) {
-    when (sideEffect) {
-        is CreateSideEffect.NavigateToHome -> {
-            Log.d("TEST", "handleSideEffect: 화면 전환")
-            navController.navigate(HomePostId) {
-                navArgument("postId") {
-                    type = NavType.StringType
-                }
+private fun handleSideEffect(navController: NavController, context: Context, sideEffect: CreateSideEffect, ) = when (sideEffect) {
+    is CreateSideEffect.NavigateToHome -> {
+        navController.navigate(HomePostId) {
+            navArgument("postId") {
+                type = NavType.StringType
             }
         }
-        is CreateSideEffect.Toast -> shortToast(context, sideEffect.text)
     }
+    is CreateSideEffect.Toast -> shortToast(context, sideEffect.text)
 }
 
 private fun shortToast(context: Context, text: String) {
     Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
 }
 
-@RequiresApi(Build.VERSION_CODES.P)
-private fun Uri.parseBitmap(context: Context): Bitmap {
-    return when (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) { // 28
-        true -> {
-            val source = ImageDecoder.createSource(context.contentResolver, this)
-            ImageDecoder.decodeBitmap(source)
-        }
-        else -> {
-            MediaStore.Images.Media.getBitmap(context.contentResolver, this)
-        }
-    }
-}
-
-@RequiresApi(Build.VERSION_CODES.P)
 @Composable
 @Preview(showBackground = true)
 fun CreateScreenPreview() {
