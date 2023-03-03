@@ -19,6 +19,10 @@ class HomeViewModel @Inject constructor(
 
     override val container = container<HomeState, Unit>(HomeState())
 
+    init {
+        getPostList()
+    }
+
     fun getPostList() = intent {
         getPostListUseCase()
             .onSuccess {

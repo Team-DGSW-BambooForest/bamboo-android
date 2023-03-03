@@ -61,8 +61,6 @@ fun HomeScreen(
     navController: NavController,
     homeViewModel: HomeViewModel = hiltViewModel(),
 ) {
-    homeViewModel.getPostList()
-
     val state = homeViewModel.collectAsState().value
     val postList = state.postList?.list
 
