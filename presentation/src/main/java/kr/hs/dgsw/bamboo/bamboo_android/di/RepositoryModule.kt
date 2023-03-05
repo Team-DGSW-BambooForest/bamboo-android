@@ -4,8 +4,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kr.hs.dgsw.bamboo.data.network.remote.PostRemoteSource
-import kr.hs.dgsw.bamboo.data.network.remote.UploadRemoteSource
+import kr.hs.dgsw.bamboo.data.network.remote.PostRemoteDataSource
+import kr.hs.dgsw.bamboo.data.network.remote.UploadRemoteDataSource
 import kr.hs.dgsw.bamboo.data.repository.PostRepositoryImpl
 import kr.hs.dgsw.bamboo.data.repository.UploadRepositoryImpl
 import kr.hs.dgsw.bamboo.domain.repository.PostRepository
@@ -18,11 +18,11 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun providePostRepository(postRemoteSource: PostRemoteSource): PostRepository =
-        PostRepositoryImpl(postRemoteSource)
+    fun providePostRepository(remote: PostRemoteDataSource): PostRepository =
+        PostRepositoryImpl(remote)
 
     @Provides
     @Singleton
-    fun provideUploadRepository(uploadRemoteSource: UploadRemoteSource): UploadRepository =
-        UploadRepositoryImpl(uploadRemoteSource)
+    fun provideUploadRepository(remote: UploadRemoteDataSource): UploadRepository =
+        UploadRepositoryImpl(remote)
 }

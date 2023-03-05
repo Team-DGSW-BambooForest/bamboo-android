@@ -19,12 +19,16 @@ class HomeViewModel @Inject constructor(
 
     override val container = container<HomeState, Unit>(HomeState())
 
+    init {
+        getPostList()
+    }
+
     fun getPostList() = intent {
         getPostListUseCase()
-            .onSuccess {
+            .onSuccess { postList ->
                 reduce {
                     state.copy(
-                        postList = it
+                        postList = postList
                     )
                 }
             }

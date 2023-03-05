@@ -4,9 +4,9 @@ import kr.hs.dgsw.bamboo.domain.repository.UploadRepository
 import javax.inject.Inject
 
 class GetImageUseCase @Inject constructor(
-    private val uploadRepository: UploadRepository
+    private val repository: UploadRepository
 ) {
     suspend operator fun invoke(postId: Long) = kotlin.runCatching {
-        uploadRepository.getImageByPostId(postId)
+        repository.getImageByPostId(postId)
     }
 }

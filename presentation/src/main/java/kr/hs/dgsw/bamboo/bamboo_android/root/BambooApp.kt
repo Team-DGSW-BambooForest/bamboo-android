@@ -7,8 +7,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import kr.hs.dgsw.bamboo.bamboo_android.core.theme.BambooAndroidTheme
-import kr.hs.dgsw.bamboo.bamboo_android.feature.main.MainScreen
+import kr.hs.dgsw.bamboo.bamboo_android.feature.create.CreateScreen
+import kr.hs.dgsw.bamboo.bamboo_android.feature.main.HomeScreen
+import kr.hs.dgsw.bamboo.bamboo_android.root.NavRoute.Create
 import kr.hs.dgsw.bamboo.bamboo_android.root.NavRoute.Home
+import kr.hs.dgsw.bamboo.bamboo_android.root.NavRoute.HomePostId
 
 @ExperimentalTextApi
 @Composable
@@ -21,7 +24,13 @@ fun BambooApp() {
             startDestination = Home
         ) {
             composable(Home) {
-                MainScreen()
+                HomeScreen(navController)
+            }
+            composable(Create) {
+                CreateScreen(navController)
+            }
+            composable(HomePostId) {
+                HomeScreen(navController)
             }
         }
     }

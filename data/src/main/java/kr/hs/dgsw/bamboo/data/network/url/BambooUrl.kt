@@ -8,6 +8,7 @@ object BambooUrl {
 
     object Post {
         const val LIST = "$POST/list"
+        const val CREATE = "$POST/create"
     }
 
     object Upload {

@@ -20,28 +20,31 @@ import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
 const val EXPIRED_TOKEN_MESSAGE = "토큰이 입력되지 않았습니다."
+const val UNKNOWN_ERROR_MESSAGE = "알 수 없는 오류가 발생했습니다."
 
-suspend inline fun <T> handleNetwork(
-    crossinline function: suspend () -> T,
+suspend inline fun <T> safeApiCall(
+    crossinline apiCall: suspend () -> T,
 ): T {
     return try {
         withContext(Dispatchers.IO) {
-            function()
+            apiCall.invoke()
         }
     } catch (e: HttpException) {
+        val message = e.message()
+
         throw when (e.code()) {
-            400 -> BadRequestException(e.message())
-            401 -> if (e.message == EXPIRED_TOKEN_MESSAGE)
+            400 -> BadRequestException(message)
+            401 -> if (message == EXPIRED_TOKEN_MESSAGE)
                 ExpiredRefreshTokenException()
             else
-                UnAuthorizedException(e.message())
-            403 -> ForbiddenException(e.message())
-            404 -> NotFoundException(e.message(),)
-            408 -> TimeOutException(e.message())
-            409 -> ConflictException(e.message())
-            429 -> TooManyRequestsException(e.message())
-            500, 501, 502, 503 -> ServerException(e.message())
-            else -> OtherHttpException(e.code(), e.message())
+                UnAuthorizedException(message)
+            403 -> ForbiddenException(message)
+            404 -> NotFoundException(message)
+            408 -> TimeOutException(message)
+            409 -> ConflictException(message)
+            429 -> TooManyRequestsException(message)
+            500, 501, 502, 503 -> ServerException(message)
+            else -> OtherHttpException(e.code(), message)
         }
     } catch (e: UnknownHostException) {
         throw NoInternetException()

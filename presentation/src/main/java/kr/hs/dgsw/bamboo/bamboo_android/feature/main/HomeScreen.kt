@@ -39,6 +39,8 @@ import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import kotlinx.coroutines.launch
 import kr.hs.dgsw.bamboo.bamboo_android.R
@@ -51,14 +53,14 @@ import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Background
 import kr.hs.dgsw.bamboo.bamboo_android.core.theme.BambooAndroidTheme
 import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Body1
 import kr.hs.dgsw.bamboo.bamboo_android.core.theme.TextGray
+import kr.hs.dgsw.bamboo.bamboo_android.root.NavRoute.Create
 import org.orbitmvi.orbit.compose.collectAsState
 
 @Composable
-fun MainScreen(
+fun HomeScreen(
+    navController: NavController,
     homeViewModel: HomeViewModel = hiltViewModel(),
 ) {
-    homeViewModel.getPostList()
-
     val state = homeViewModel.collectAsState().value
     val postList = state.postList?.list
 
@@ -91,7 +93,7 @@ fun MainScreen(
                         Spacer(modifier = Modifier.width(10.dp))
                         IconButton(
                             modifier = Modifier.size(34.dp),
-                            onClick = { /*TODO*/ },
+                            onClick = { navController.navigate(Create) },
                             content = { PlusIcon() }
                         )
                         Spacer(modifier = Modifier.width(10.dp))
@@ -196,6 +198,7 @@ fun PostItem(
 @Composable
 fun PreviewMainScreen() {
     BambooAndroidTheme {
-        MainScreen()
+        val navController = rememberNavController()
+        HomeScreen(navController)
     }
 }
