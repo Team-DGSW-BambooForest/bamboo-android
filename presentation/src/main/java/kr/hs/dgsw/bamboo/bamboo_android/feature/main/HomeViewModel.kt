@@ -25,10 +25,10 @@ class HomeViewModel @Inject constructor(
 
     fun getPostList() = intent {
         getPostListUseCase()
-            .onSuccess {
+            .onSuccess { postList ->
                 reduce {
                     state.copy(
-                        postList = it
+                        postList = postList
                     )
                 }
             }

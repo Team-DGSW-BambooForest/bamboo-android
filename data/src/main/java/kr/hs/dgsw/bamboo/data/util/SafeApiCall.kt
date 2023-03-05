@@ -30,11 +30,11 @@ suspend inline fun <T> safeApiCall(
             apiCall.invoke()
         }
     } catch (e: HttpException) {
-        val message = e.response()?.errorBody()?.string() ?: UNKNOWN_ERROR_MESSAGE
+        val message = e.message()
 
         throw when (e.code()) {
             400 -> BadRequestException(message)
-            401 -> if (e.message == EXPIRED_TOKEN_MESSAGE)
+            401 -> if (message == EXPIRED_TOKEN_MESSAGE)
                 ExpiredRefreshTokenException()
             else
                 UnAuthorizedException(message)

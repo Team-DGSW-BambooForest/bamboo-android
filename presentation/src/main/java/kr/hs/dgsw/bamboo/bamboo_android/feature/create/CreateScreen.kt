@@ -4,9 +4,14 @@
 
 package kr.hs.dgsw.bamboo.bamboo_android.feature.create
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
 import android.net.Uri
@@ -38,6 +43,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.app.ActivityCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavType
@@ -51,8 +57,15 @@ import kr.hs.dgsw.bamboo.bamboo_android.core.component.BambooBottomSheet
 import kr.hs.dgsw.bamboo.bamboo_android.core.component.BambooTopBar
 import kr.hs.dgsw.bamboo.bamboo_android.core.theme.*
 import kr.hs.dgsw.bamboo.bamboo_android.root.NavRoute.HomePostId
+import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
+import java.io.ByteArrayOutputStream
+import java.io.File
 
 @ExperimentalTextApi
 @Composable
@@ -61,25 +74,55 @@ fun CreateScreen(
     createViewModel: CreateViewModel = hiltViewModel(),
 ) {
 
-    val interactionSource = remember { MutableInteractionSource() }
-    val scrollState = rememberScrollState()
-
-    val sheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
-    val scope = rememberCoroutineScope()
-
-    var content by remember { mutableStateOf("") }
-
-    val focusRequester = remember { FocusRequester() }
-
-    var imageBitmap by remember { mutableStateOf<Bitmap?>(null) }
     val context = LocalContext.current
+    val activity = context as Activity
+
+    val scope = rememberCoroutineScope()
+    val sheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
 
     val state = createViewModel.collectAsState().value
     createViewModel.collectSideEffect { handleSideEffect(navController, context, it) }
 
-    val takePhotoFromAlbumLauncher = rememberLauncherForActivityResult() {
+    var image by remember { mutableStateOf<MultipartBody.Part?>(null) }
+    var bitmap by remember { mutableStateOf<Bitmap?>(null) }
+
+    val takePhotoFromAlbumLauncher =
+        rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                image = result.data?.data?.let { uri ->
+                    val bitmapImage = uri.uriToBitmap(context)
+                    bitmap = bitmapImage
+                    bitmapImage.bitmapToMultipart()
+                }
+            }
+        }
+
+    val takePhotoFromCameraLauncher =
+        rememberLauncherForActivityResult(ActivityResultContracts.TakePicturePreview()) { takenPhoto ->
+            image = takenPhoto?.let { photo ->
+                bitmap = photo
+                photo.bitmapToMultipart()
+            }
+        }
+
+
+    val chooserIntent = Intent(Intent.ACTION_CHOOSER).apply {
+        this.putExtra(
+            Intent.EXTRA_INTENT,
+            Intent(
+                Intent.ACTION_PICK,
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+            )
+        )
+        this.putExtra(Intent.EXTRA_TITLE, "사용할 앱을 선택해주세요.")
+    }
+
+    val getPermission = {
 
     }
+
+    var content by remember { mutableStateOf("") }
+    val focusRequester = remember { FocusRequester() }
 
     BambooBottomSheet(sheetState) {
         Scaffold(
@@ -115,7 +158,10 @@ fun CreateScreen(
                                 .width(60.dp)
                                 .align(Alignment.CenterEnd),
                             shape = RoundedCornerShape(10.dp),
-                            onClick = { createViewModel.createPost(content) },
+                            onClick = {
+                                Log.d("TEST", "createPost: $image")
+                                createViewModel.createPost(content, image)
+                            },
                             elevation = null,
                             contentPadding = PaddingValues(0.dp),
                             colors = ButtonDefaults.buttonColors(Color.Transparent)
@@ -136,6 +182,8 @@ fun CreateScreen(
                 }
             }
         ) {
+            val scrollState = rememberScrollState()
+
             Box(
                 modifier = Modifier
                     .fillMaxSize()
@@ -217,13 +265,13 @@ fun CreateScreen(
                     modifier = Modifier.align(Alignment.BottomCenter)
                 ) {
 
-                    imageBitmap?.let { bitmap ->
+                    bitmap?.let { image ->
                         AsyncImage(
                             modifier = Modifier
                                 .padding(14.dp)
                                 .size(100.dp)
                                 .clip(RoundedCornerShape(20.dp)),
-                            model = bitmap,
+                            model = image,
                             contentDescription = null,
                             contentScale = ContentScale.Crop
                         )
@@ -238,6 +286,8 @@ fun CreateScreen(
 
                     Spacer(modifier = Modifier.height(8.dp))
 
+                    val interactionSource = remember { MutableInteractionSource() }
+
                     Row {
                         Column(
                             modifier = Modifier
@@ -246,7 +296,12 @@ fun CreateScreen(
                                     interactionSource = interactionSource,
                                     indication = null
                                 ) {
-                                    TODO("포토 추가")
+                                    when (context.checkSelfPermission(Manifest.permission.CAMERA)) {
+                                        PackageManager.PERMISSION_GRANTED ->
+                                            takePhotoFromCameraLauncher.launch()
+                                        else ->
+                                            ActivityCompat.requestPermissions(activity, arrayOf(Manifest.permission.CAMERA), 2)
+                                    }
                                 },
                         ) {
                             AsyncImage(
@@ -271,8 +326,12 @@ fun CreateScreen(
                                     interactionSource = interactionSource,
                                     indication = null
                                 ) {
-                                    TODO("앨범 추가")
-
+                                    when (context.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                                        PackageManager.PERMISSION_GRANTED ->
+                                            takePhotoFromAlbumLauncher.launch(chooserIntent)
+                                        else ->
+                                            ActivityCompat.requestPermissions(activity, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 1)
+                                    }
                                 }
                         ) {
                             AsyncImage(
@@ -298,7 +357,11 @@ fun CreateScreen(
     }
 }
 
-private fun handleSideEffect(navController: NavController, context: Context, sideEffect: CreateSideEffect, ) = when (sideEffect) {
+private fun handleSideEffect(
+    navController: NavController,
+    context: Context,
+    sideEffect: CreateSideEffect,
+) = when (sideEffect) {
     is CreateSideEffect.NavigateToHome -> {
         navController.navigate(HomePostId) {
             navArgument("postId") {
@@ -311,6 +374,27 @@ private fun handleSideEffect(navController: NavController, context: Context, sid
 
 private fun shortToast(context: Context, text: String) {
     Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
+}
+
+@SuppressLint("NewApi")
+private fun Uri.uriToBitmap(context: Context): Bitmap {
+    return when (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+        true -> {
+            val source = ImageDecoder.createSource(context.contentResolver, this)
+            ImageDecoder.decodeBitmap(source)
+        }
+        else -> {
+            MediaStore.Images.Media.getBitmap(context.contentResolver, this)
+        }
+    }
+}
+
+private fun Bitmap.bitmapToMultipart(): MultipartBody.Part {
+    val byteArrayOutputStream = ByteArrayOutputStream()
+    this.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
+    val requestFile =
+        RequestBody.create("image/png".toMediaTypeOrNull(), byteArrayOutputStream.toByteArray())
+    return MultipartBody.Part.createFormData("image", "image.png", requestFile)
 }
 
 @Composable

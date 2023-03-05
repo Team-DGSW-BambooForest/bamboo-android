@@ -3,6 +3,8 @@ package kr.hs.dgsw.bamboo.bamboo_android.feature.create
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kr.hs.dgsw.bamboo.domain.exception.ExpiredRefreshTokenException
 import kr.hs.dgsw.bamboo.domain.param.post.CreatePostParam
 import kr.hs.dgsw.bamboo.domain.usecase.CreatePostUseCase
@@ -26,8 +28,8 @@ class CreateViewModel @Inject constructor(
 
     fun createPost(
         content: String,
-        hashTags: List<String> = emptyList(),
-        image: MultipartBody.Part?
+        image: MultipartBody.Part? = null,
+        hashTags: List<String> = emptyList()
     ) = intent {
         createPostUseCase(
             CreatePostParam(
