@@ -13,4 +13,3 @@ sealed class CreateSideEffect {
 //    object SuccessCreateEvent : CreateSideEffect()
     data class Toast(val text: String) : CreateSideEffect()
 }
-

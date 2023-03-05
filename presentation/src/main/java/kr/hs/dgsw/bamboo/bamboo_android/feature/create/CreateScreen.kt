@@ -11,7 +11,6 @@ import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
 import android.net.Uri
@@ -22,16 +21,38 @@ import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.launch
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.*
-import androidx.compose.runtime.*
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.IconButton
+import androidx.compose.material.ModalBottomSheetValue
+import androidx.compose.material.Scaffold
+import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material.rememberModalBottomSheetState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -55,17 +76,23 @@ import kr.hs.dgsw.bamboo.bamboo_android.R
 import kr.hs.dgsw.bamboo.bamboo_android.core.BackIcon
 import kr.hs.dgsw.bamboo.bamboo_android.core.component.BambooBottomSheet
 import kr.hs.dgsw.bamboo.bamboo_android.core.component.BambooTopBar
-import kr.hs.dgsw.bamboo.bamboo_android.core.theme.*
+import kr.hs.dgsw.bamboo.bamboo_android.core.theme.BambooAndroidTheme
+import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Black
+import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Body1
+import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Body2
+import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Gray
+import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Green
+import kr.hs.dgsw.bamboo.bamboo_android.core.theme.LightGray
+import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Primary
+import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Subtitle1
+import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Subtitle2
 import kr.hs.dgsw.bamboo.bamboo_android.root.NavRoute.HomePostId
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import okhttp3.RequestBody.Companion.asRequestBody
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 import java.io.ByteArrayOutputStream
-import java.io.File
 
 @ExperimentalTextApi
 @Composable
@@ -105,7 +132,6 @@ fun CreateScreen(
             }
         }
 
-
     val chooserIntent = Intent(Intent.ACTION_CHOOSER).apply {
         this.putExtra(
             Intent.EXTRA_INTENT,
@@ -118,7 +144,6 @@ fun CreateScreen(
     }
 
     val getPermission = {
-
     }
 
     var content by remember { mutableStateOf("") }
@@ -199,7 +224,6 @@ fun CreateScreen(
 
                     Spacer(modifier = Modifier.height(12.dp))
 
-
                     Row(
                         modifier = Modifier
                             .padding(horizontal = 14.dp)
@@ -252,7 +276,7 @@ fun CreateScreen(
                                   •   지나치게 긴 제보
                                 (이외에도 관리자가 부적절하다고 판단한 제보와 댓글은 
                                 경고 처리 없이 삭제 조치 될 수 있습니다.)
-                            """.trimIndent(),
+                                """.trimIndent(),
                                 textColor = Color(0xFFD9D9D9)
                             )
                         }

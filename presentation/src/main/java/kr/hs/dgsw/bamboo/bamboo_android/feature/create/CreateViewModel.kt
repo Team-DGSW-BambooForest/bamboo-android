@@ -3,14 +3,10 @@ package kr.hs.dgsw.bamboo.bamboo_android.feature.create
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kr.hs.dgsw.bamboo.domain.exception.ExpiredRefreshTokenException
 import kr.hs.dgsw.bamboo.domain.param.post.CreatePostParam
 import kr.hs.dgsw.bamboo.domain.usecase.CreatePostUseCase
 import kr.hs.dgsw.bamboo.domain.usecase.PostImageUseCase
 import okhttp3.MultipartBody
-import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect

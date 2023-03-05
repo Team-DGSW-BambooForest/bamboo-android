@@ -2,7 +2,6 @@ package kr.hs.dgsw.bamboo.data.network.service
 
 import kr.hs.dgsw.bamboo.data.network.url.BambooUrl
 import okhttp3.MultipartBody
-import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST

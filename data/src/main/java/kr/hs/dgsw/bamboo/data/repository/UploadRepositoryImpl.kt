@@ -14,6 +14,4 @@ class UploadRepositoryImpl @Inject constructor(
 
     override suspend fun postImage(postId: Long, image: MultipartBody.Part) =
         remote.postImage(postId, image)
-
-
 }
