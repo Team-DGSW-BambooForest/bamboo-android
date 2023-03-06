@@ -1,13 +1,18 @@
 package kr.hs.dgsw.bamboo.bamboo_android.core.theme
 
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 
 val Purple200 = Color(0xFFBB86FC)
 val Purple500 = Color(0xFF6200EE)
 val Purple700 = Color(0xFF3700B3)
 val Teal200 = Color(0xFF03DAC5)
+val Aqua = Color(0xFF49E7BA)
+val Green = Color(0xFF37DC81)
+val Primary = Brush.linearGradient(listOf(Aqua, Green))
 val Background = Color(0xFFF2F4F9)
 val Black = Color(0xFF2F2F2F)
+<<<<<<< HEAD
 val Gray = Color(0xFFAFAFAF)
 val BorderGray = Color(0xFFE6E6E6)
 val ButtonGray = Color(0xFFAFAFAF)
@@ -15,3 +20,9 @@ val MainColor = Color(0xFF49E7BA)
 val TextGray = Color(0xFFADADAD)
 val TextGray2 = Color(0xFFAFAFAF)
 val SurfaceGray = Color(0xFFF3F4F6)
+=======
+val TextGray = Color(0xFFAFAFAF)
+val Gray = Color(0xFFADADAD)
+val DarkGray = Color(0xFF4B4B4B)
+val LightGray = Color(0xFFF3F4F6)
+>>>>>>> develop
