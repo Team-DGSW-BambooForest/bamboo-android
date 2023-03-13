@@ -2,7 +2,6 @@ package kr.hs.dgsw.bamboo.bamboo_android.feature.comment
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -10,18 +9,27 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import kr.hs.dgsw.bamboo.bamboo_android.R
 import kr.hs.dgsw.bamboo.bamboo_android.core.BackArrowIcon
+import kr.hs.dgsw.bamboo.bamboo_android.core.component.BambooTopBar
 import kr.hs.dgsw.bamboo.bamboo_android.core.component.TextFieldSurface
-import kr.hs.dgsw.bamboo.bamboo_android.core.component.TopBar
+import org.orbitmvi.orbit.compose.collectAsState
 
 @Composable
-fun CommentScreen() {
+fun CommentScreen(
+    navController: NavController,
+    commentViewModel: CommentViewModel = hiltViewModel(),
+) {
+    val state = commentViewModel.collectAsState().value
+//    val postList = state.Comment?.list
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
-            TopBar(icon = { BackArrowIcon(modifier = Modifier.size(24.dp)) }) {
+            BambooTopBar(icon = { BackArrowIcon(modifier = Modifier.size(24.dp)) }) {
                 Spacer(modifier = Modifier.padding(horizontal = 6.dp))
                 Image(
                     modifier = Modifier.size(40.dp),
@@ -34,9 +42,6 @@ fun CommentScreen() {
                     Text(text = "2023.02.01", color = Color.LightGray)
                 }
             }
-        },
-        bottomBar = {
-
         }
     ) {
         Column {
@@ -55,5 +60,6 @@ fun CommentScreen() {
 @Composable
 @Preview(showBackground = true)
 fun Preview() {
-    CommentScreen()
+    val navController = rememberNavController()
+    CommentScreen(navController)
 }

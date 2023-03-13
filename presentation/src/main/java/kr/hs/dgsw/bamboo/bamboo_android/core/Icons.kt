@@ -31,24 +31,26 @@ fun PlusIcon(
 }
 
 @Composable
-<<<<<<< HEAD
 fun BackArrowIcon(
     modifier: Modifier = Modifier,
 ) {
     Icon(
         painter = painterResource(id = R.drawable.ic_back_arrow),
-=======
+        contentDescription = null,
+        modifier = modifier,
+    )
+}
+
+@Composable
 fun BackIcon(
     modifier: Modifier = Modifier,
 ) {
     Icon(
         painter = painterResource(id = R.drawable.back),
->>>>>>> develop
         contentDescription = null,
         modifier = modifier,
     )
 }
-<<<<<<< HEAD
 
 @Composable
 fun CameraIcon(
@@ -73,5 +75,3 @@ fun ImageIcon(
         tint = ButtonGray
     )
 }
-=======
->>>>>>> develop

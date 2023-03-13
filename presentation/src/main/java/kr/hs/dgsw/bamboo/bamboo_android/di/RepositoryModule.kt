@@ -25,4 +25,5 @@ object RepositoryModule {
     @Singleton
     fun provideUploadRepository(remote: UploadRemoteDataSource): UploadRepository =
         UploadRepositoryImpl(remote)
+
 }

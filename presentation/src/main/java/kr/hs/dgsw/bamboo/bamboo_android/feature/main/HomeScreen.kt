@@ -1,6 +1,5 @@
 @file:OptIn(
     ExperimentalTextApi::class, ExperimentalMaterialApi::class,
-    ExperimentalMaterialApi::class
 )
 
 package kr.hs.dgsw.bamboo.bamboo_android.feature.main
@@ -132,8 +131,9 @@ fun HomeScreen(
                         name = post.author,
                         createTime = post.createTime,
                         content = post.content,
-                        contentImage = state.contentImage
+                        contentImage = state.contentImage,
                     ) {
+                        
                     }
                 }
             }
