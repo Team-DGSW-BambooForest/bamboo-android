@@ -6,5 +6,4 @@ data class Post(
     val profileImage: String,
     val content: String,
     val createTime: String,
-    val hashTags: List<HashTag>,
 )

@@ -13,6 +13,4 @@ data class PostResponse(
     val content: String,
     @SerializedName("createdAt")
     val createTime: String,
-    @SerializedName("hashTags")
-    val hashTags: List<HashTagResponse>,
 )
