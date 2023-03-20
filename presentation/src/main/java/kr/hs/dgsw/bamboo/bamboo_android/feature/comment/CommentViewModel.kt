@@ -18,7 +18,7 @@ class CommentViewModel @Inject constructor(
 
     //Todo("함수를 어떤식으로 호출해야되는 거지? id를 받게 되면 하나의 comment만 들고 오는 것이 아닌가?")
     init {
-        getCommentList(postId = container.stateFlow.value.postId!!.toLong())  //?
+//        getCommentList(postId = container.stateFlow.value.postId!!.toLong())  //?
     }
 
     private fun getCommentList(postId: Long) = intent {

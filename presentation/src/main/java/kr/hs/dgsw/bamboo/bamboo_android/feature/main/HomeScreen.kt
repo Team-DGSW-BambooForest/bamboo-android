@@ -54,6 +54,7 @@ import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Background
 import kr.hs.dgsw.bamboo.bamboo_android.core.theme.BambooAndroidTheme
 import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Body1
 import kr.hs.dgsw.bamboo.bamboo_android.core.theme.TextGray
+import kr.hs.dgsw.bamboo.bamboo_android.root.NavRoute.Comment
 import kr.hs.dgsw.bamboo.bamboo_android.root.NavRoute.Create
 import org.orbitmvi.orbit.compose.collectAsState
 
@@ -133,7 +134,7 @@ fun HomeScreen(
                         content = post.content,
                         contentImage = state.contentImage,
                     ) {
-                        
+                        navController.navigate(Comment)
                     }
                 }
             }

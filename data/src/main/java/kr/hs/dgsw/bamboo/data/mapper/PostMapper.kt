@@ -28,5 +28,5 @@ fun HashTagResponse.toEntity() = HashTag(
 
 fun CreatePostParam.toRequest() = CreatePostRequest(
     content = this.content,
-    hashTags = this.hashTags
+//    hashTags = this.hashTags
 )

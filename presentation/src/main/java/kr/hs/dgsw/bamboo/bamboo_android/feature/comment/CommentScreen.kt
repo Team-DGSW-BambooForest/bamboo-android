@@ -14,6 +14,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import kr.hs.dgsw.bamboo.bamboo_android.R
 import kr.hs.dgsw.bamboo.bamboo_android.core.BackArrowIcon
+import kr.hs.dgsw.bamboo.bamboo_android.core.BackIcon
 import kr.hs.dgsw.bamboo.bamboo_android.core.component.BambooTopBar
 import kr.hs.dgsw.bamboo.bamboo_android.core.component.TextFieldSurface
 import org.orbitmvi.orbit.compose.collectAsState
@@ -24,12 +25,22 @@ fun CommentScreen(
     commentViewModel: CommentViewModel = hiltViewModel(),
 ) {
     val state = commentViewModel.collectAsState().value
-//    val postList = state.Comment?.list
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
-            BambooTopBar(icon = { BackArrowIcon(modifier = Modifier.size(24.dp)) }) {
+            BambooTopBar(
+                icon = {
+                    IconButton(
+                        modifier = Modifier.size(24.dp),
+                        onClick = {
+                            navController.popBackStack()
+                        }
+                    ) {
+                        BackIcon()
+                    }
+                }
+            ) {
                 Spacer(modifier = Modifier.padding(horizontal = 6.dp))
                 Image(
                     modifier = Modifier.size(40.dp),
