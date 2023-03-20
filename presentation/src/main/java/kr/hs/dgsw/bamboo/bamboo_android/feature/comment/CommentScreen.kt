@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @file:OptIn(ExperimentalTextApi::class)
 
 package kr.hs.dgsw.bamboo.bamboo_android.feature.comment
@@ -33,6 +34,27 @@ import kr.hs.dgsw.bamboo.bamboo_android.core.component.BambooTopBar
 import kr.hs.dgsw.bamboo.bamboo_android.core.component.TextFieldSurface
 import kr.hs.dgsw.bamboo.bamboo_android.core.theme.*
 import kr.hs.dgsw.bamboo.domain.entity.comment.Comment
+=======
+package kr.hs.dgsw.bamboo.bamboo_android.feature.comment
+
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import kr.hs.dgsw.bamboo.bamboo_android.R
+import kr.hs.dgsw.bamboo.bamboo_android.core.BackArrowIcon
+import kr.hs.dgsw.bamboo.bamboo_android.core.BackIcon
+import kr.hs.dgsw.bamboo.bamboo_android.core.component.BambooTopBar
+import kr.hs.dgsw.bamboo.bamboo_android.core.component.TextFieldSurface
+>>>>>>> #2_comment_screen
 import org.orbitmvi.orbit.compose.collectAsState
 
 @Composable
@@ -41,7 +63,10 @@ fun CommentScreen(
     commentViewModel: CommentViewModel = hiltViewModel(),
 ) {
     val state = commentViewModel.collectAsState().value
+<<<<<<< HEAD
     val comments = state.comments
+=======
+>>>>>>> #2_comment_screen
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -80,6 +105,7 @@ fun CommentScreen(
             Spacer(modifier = Modifier.weight(1f))
             TextFieldSurface()
         }
+<<<<<<< HEAD
         LazyColumn {
             itemsIndexed(
                 items = comments ?: emptyList(),
@@ -161,6 +187,12 @@ fun CommentContainer(
         }
     }
 }
+=======
+//        LazyColumn(content = )
+    }
+}
+
+>>>>>>> #2_comment_screen
 
 @Composable
 @Preview(showBackground = true)
