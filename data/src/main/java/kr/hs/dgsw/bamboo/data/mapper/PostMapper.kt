@@ -19,7 +19,6 @@ fun PostResponse.toEntity() = Post(
     profileImage = this.profileImage,
     content = this.content,
     createTime = "${createTime.split("-", "T")[0]}.${createTime.split("-", "T")[1]}.${createTime.split("-", "T")[2]}",
-    hashTags = this.hashTags.map { it.toEntity() }
 )
 
 fun HashTagResponse.toEntity() = HashTag(
@@ -29,5 +28,5 @@ fun HashTagResponse.toEntity() = HashTag(
 
 fun CreatePostParam.toRequest() = CreatePostRequest(
     content = this.content,
-    hashTags = this.hashTags
+//    hashTags = this.hashTags
 )

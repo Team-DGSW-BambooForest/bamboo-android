@@ -23,7 +23,7 @@ class HomeViewModel @Inject constructor(
         getPostList()
     }
 
-    fun getPostList() = intent {
+    private fun getPostList() = intent {
         getPostListUseCase()
             .onSuccess { postList ->
                 reduce {

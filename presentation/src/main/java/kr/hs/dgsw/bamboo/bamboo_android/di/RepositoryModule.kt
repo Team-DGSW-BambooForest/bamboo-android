@@ -4,10 +4,13 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kr.hs.dgsw.bamboo.data.network.remote.CommentRemoteDateSource
 import kr.hs.dgsw.bamboo.data.network.remote.PostRemoteDataSource
 import kr.hs.dgsw.bamboo.data.network.remote.UploadRemoteDataSource
+import kr.hs.dgsw.bamboo.data.repository.CommentRepositoryImpl
 import kr.hs.dgsw.bamboo.data.repository.PostRepositoryImpl
 import kr.hs.dgsw.bamboo.data.repository.UploadRepositoryImpl
+import kr.hs.dgsw.bamboo.domain.repository.CommentRepository
 import kr.hs.dgsw.bamboo.domain.repository.PostRepository
 import kr.hs.dgsw.bamboo.domain.repository.UploadRepository
 import javax.inject.Singleton
@@ -25,4 +28,10 @@ object RepositoryModule {
     @Singleton
     fun provideUploadRepository(remote: UploadRemoteDataSource): UploadRepository =
         UploadRepositoryImpl(remote)
+
+    @Provides
+    @Singleton
+    fun provideCommentRepository(remote: CommentRemoteDateSource): CommentRepository =
+        CommentRepositoryImpl(remote)
+
 }
