@@ -29,9 +29,12 @@ object RepositoryModule {
     fun provideUploadRepository(remote: UploadRemoteDataSource): UploadRepository =
         UploadRepositoryImpl(remote)
 
+<<<<<<< HEAD
     @Provides
     @Singleton
     fun provideCommentRepository(remote: CommentRemoteDateSource): CommentRepository =
         CommentRepositoryImpl(remote)
 
+=======
+>>>>>>> #2_comment_screen
 }
