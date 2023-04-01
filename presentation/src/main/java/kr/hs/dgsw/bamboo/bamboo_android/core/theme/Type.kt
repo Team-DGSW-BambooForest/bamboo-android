@@ -25,6 +25,7 @@ fun Body1(
     modifier: Modifier = Modifier,
     text: String,
     textColor: Color = Black,
+    maxLines: Int = Int.MAX_VALUE
 ) {
     Text(
         modifier = modifier,
@@ -37,7 +38,8 @@ fun Body1(
             platformStyle = PlatformTextStyle(
                 includeFontPadding = false
             )
-        )
+        ),
+        maxLines = maxLines
     )
 }
 
