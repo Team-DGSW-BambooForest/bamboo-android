@@ -54,6 +54,7 @@ import kr.hs.dgsw.bamboo.bamboo_android.core.theme.BambooAndroidTheme
 import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Body1
 import kr.hs.dgsw.bamboo.bamboo_android.core.theme.TextGray
 import kr.hs.dgsw.bamboo.bamboo_android.root.NavRoute.Create
+import kr.hs.dgsw.bamboo.bamboo_android.root.NavRoute.Search
 import org.orbitmvi.orbit.compose.collectAsState
 
 @Composable
@@ -87,7 +88,7 @@ fun HomeScreen(
                     ) {
                         IconButton(
                             modifier = Modifier.size(34.dp),
-                            onClick = { /*TODO*/ },
+                            onClick = { navController.navigate(Search) },
                             content = { SearchIcon() }
                         )
                         Spacer(modifier = Modifier.width(10.dp))

@@ -6,6 +6,7 @@ import kr.hs.dgsw.bamboo.data.network.url.BambooUrl
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface PostService {
 
@@ -16,4 +17,9 @@ interface PostService {
     suspend fun createPost(
         @Body createPostRequest: CreatePostRequest
     ): Long
+
+    @GET(BambooUrl.Post.SEARCH)
+    suspend fun searchPost(
+        @Path("word") word: String
+    ): PostListResponse
 }

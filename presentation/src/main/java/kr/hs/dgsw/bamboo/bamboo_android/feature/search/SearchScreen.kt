@@ -27,6 +27,7 @@ import kr.hs.dgsw.bamboo.bamboo_android.core.BackIcon
 import kr.hs.dgsw.bamboo.bamboo_android.core.component.BambooTopBar
 import kr.hs.dgsw.bamboo.bamboo_android.core.theme.*
 import kr.hs.dgsw.bamboo.bamboo_android.feature.main.PostItem
+import org.orbitmvi.orbit.compose.collectAsState
 
 @OptIn(ExperimentalTextApi::class)
 @Composable
@@ -34,6 +35,9 @@ fun SearchScreen(
     navController: NavController,
     searchViewModel: SearchViewModel = hiltViewModel(),
 ) {
+    val state = searchViewModel.collectAsState().value
+    val postList = state.postList?.list
+
     var content by remember { mutableStateOf("") }
 
     Scaffold(
@@ -65,8 +69,8 @@ fun SearchScreen(
                     onValueChange = { content = it },
                     singleLine = true,
                     keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Search),
-                    keyboardActions = KeyboardActions(onDone = {
-
+                    keyboardActions = KeyboardActions(onSearch = {
+                        searchViewModel.searchPost(content)
                     })
                 ) {
                     Row(
@@ -100,9 +104,13 @@ fun SearchScreen(
             }
         }
     ) {
-        LazyColumn {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Background)
+        ) {
             itemsIndexed(
-                items = potList ?: emptyList(),
+                items = postList ?: emptyList(),
                 key = { _, post ->
                     post.postId
                 }
