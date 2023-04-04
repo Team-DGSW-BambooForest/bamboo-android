@@ -86,7 +86,7 @@ import kr.hs.dgsw.bamboo.bamboo_android.core.theme.LightGray
 import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Primary
 import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Subtitle1
 import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Subtitle2
-import kr.hs.dgsw.bamboo.bamboo_android.root.NavRoute.HomePostId
+import kr.hs.dgsw.bamboo.bamboo_android.root.NavRoute.Home
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -387,7 +387,7 @@ private fun handleSideEffect(
     sideEffect: CreateSideEffect,
 ) = when (sideEffect) {
     is CreateSideEffect.NavigateToHome -> {
-        navController.navigate(HomePostId) {
+        navController.navigate(Home) {
             navArgument("postId") {
                 type = NavType.StringType
             }

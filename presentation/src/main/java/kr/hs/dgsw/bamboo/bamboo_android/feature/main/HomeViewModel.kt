@@ -23,7 +23,7 @@ class HomeViewModel @Inject constructor(
         getPostList()
     }
 
-    fun getPostList() = intent {
+    private fun getPostList() = intent {
         getPostListUseCase()
             .onSuccess { postList ->
                 reduce {
@@ -33,7 +33,6 @@ class HomeViewModel @Inject constructor(
                 }
             }
             .onFailure {
-                Log.d("ERROR", "getPostList: ${it.message}")
                 reduce {
                     state.copy(
                         exception = it
@@ -52,7 +51,6 @@ class HomeViewModel @Inject constructor(
                 }
             }
             .onFailure {
-                Log.d("ERROR", "getImage: ${it.message}")
                 reduce {
                     state.copy(
                         exception = it

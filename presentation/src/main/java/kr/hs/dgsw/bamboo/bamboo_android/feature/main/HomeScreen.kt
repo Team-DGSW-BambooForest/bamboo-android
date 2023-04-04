@@ -1,6 +1,5 @@
 @file:OptIn(
     ExperimentalTextApi::class, ExperimentalMaterialApi::class,
-    ExperimentalMaterialApi::class
 )
 
 package kr.hs.dgsw.bamboo.bamboo_android.feature.main

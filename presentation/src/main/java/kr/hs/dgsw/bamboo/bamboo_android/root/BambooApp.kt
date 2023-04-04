@@ -12,7 +12,6 @@ import kr.hs.dgsw.bamboo.bamboo_android.feature.main.HomeScreen
 import kr.hs.dgsw.bamboo.bamboo_android.feature.search.SearchScreen
 import kr.hs.dgsw.bamboo.bamboo_android.root.NavRoute.Create
 import kr.hs.dgsw.bamboo.bamboo_android.root.NavRoute.Home
-import kr.hs.dgsw.bamboo.bamboo_android.root.NavRoute.HomePostId
 import kr.hs.dgsw.bamboo.bamboo_android.root.NavRoute.Search
 
 @ExperimentalTextApi
@@ -30,9 +29,6 @@ fun BambooApp() {
             }
             composable(Create) {
                 CreateScreen(navController)
-            }
-            composable(HomePostId) {
-                HomeScreen(navController)
             }
             composable(Search) {
                 SearchScreen(navController)
