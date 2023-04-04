@@ -2,7 +2,6 @@ package kr.hs.dgsw.bamboo.bamboo_android.feature.search
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kr.hs.dgsw.bamboo.bamboo_android.feature.main.HomeState
 import kr.hs.dgsw.bamboo.domain.usecase.SearchPostUseCase
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
