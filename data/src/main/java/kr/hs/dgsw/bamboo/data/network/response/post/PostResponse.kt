@@ -12,5 +12,5 @@ data class PostResponse(
     @SerializedName("content")
     val content: String,
     @SerializedName("createdAt")
-    val createTime: String
+    val createTime: String,
 )
