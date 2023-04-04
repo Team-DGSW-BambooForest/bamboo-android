@@ -86,7 +86,7 @@ import kr.hs.dgsw.bamboo.bamboo_android.core.theme.LightGray
 import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Primary
 import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Subtitle1
 import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Subtitle2
-import kr.hs.dgsw.bamboo.bamboo_android.root.NavRoute.Home
+import kr.hs.dgsw.bamboo.bamboo_android.root.NavRoute
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -100,7 +100,6 @@ fun CreateScreen(
     navController: NavController,
     createViewModel: CreateViewModel = hiltViewModel(),
 ) {
-
     val context = LocalContext.current
     val activity = context as Activity
 
@@ -387,7 +386,7 @@ private fun handleSideEffect(
     sideEffect: CreateSideEffect,
 ) = when (sideEffect) {
     is CreateSideEffect.NavigateToHome -> {
-        navController.navigate(Home) {
+        navController.navigate(NavRoute.HOME.routeName) {
             navArgument("postId") {
                 type = NavType.StringType
             }
