@@ -17,4 +17,7 @@ class PostRepositoryImpl @Inject constructor(
 
     override suspend fun createPost(createPostParam: CreatePostParam): Long =
         remote.createPost(createPostParam.toRequest())
+
+    override suspend fun searchPost(word: String): PostList =
+        remote.searchPost(word).toEntity()
 }

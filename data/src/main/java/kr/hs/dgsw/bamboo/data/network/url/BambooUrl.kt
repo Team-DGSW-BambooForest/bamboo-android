@@ -1,7 +1,7 @@
 package kr.hs.dgsw.bamboo.data.network.url
 
 object BambooUrl {
-    const val BASE_URL = "http://3.39.26.147:8081/"
+    const val BASE_URL = "https://server.v1.daesoup.com/"
 
     const val POST = "post"
     const val UPLOAD = "upload"
@@ -9,6 +9,7 @@ object BambooUrl {
     object Post {
         const val LIST = "$POST/list"
         const val CREATE = "$POST/create"
+        const val SEARCH = "$POST/search/{word}"
     }
 
     object Upload {

@@ -1,6 +1,5 @@
 @file:OptIn(
     ExperimentalTextApi::class, ExperimentalMaterialApi::class,
-    ExperimentalMaterialApi::class
 )
 
 package kr.hs.dgsw.bamboo.bamboo_android.feature.main
@@ -55,7 +54,7 @@ import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Background
 import kr.hs.dgsw.bamboo.bamboo_android.core.theme.BambooAndroidTheme
 import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Body1
 import kr.hs.dgsw.bamboo.bamboo_android.core.theme.TextGray
-import kr.hs.dgsw.bamboo.bamboo_android.root.NavRoute.Create
+import kr.hs.dgsw.bamboo.bamboo_android.root.NavRoute
 import org.orbitmvi.orbit.compose.collectAsState
 
 @Composable
@@ -91,13 +90,13 @@ fun HomeScreen(
                     ) {
                         IconButton(
                             modifier = Modifier.size(34.dp),
-                            onClick = { /*TODO*/ },
+                            onClick = { navController.navigate(NavRoute.SEARCH.routeName) },
                             content = { SearchIcon() }
                         )
                         Spacer(modifier = Modifier.width(10.dp))
                         IconButton(
                             modifier = Modifier.size(34.dp),
-                            onClick = { navController.navigate(Create) },
+                            onClick = { navController.navigate(NavRoute.CREATE.routeName) },
                             content = { PlusIcon() }
                         )
                         Spacer(modifier = Modifier.width(10.dp))

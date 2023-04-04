@@ -1,6 +1,5 @@
 package kr.hs.dgsw.bamboo.bamboo_android.feature.main
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kr.hs.dgsw.bamboo.domain.usecase.GetImageUseCase
@@ -23,7 +22,7 @@ class HomeViewModel @Inject constructor(
         getPostList()
     }
 
-    fun getPostList() = intent {
+    private fun getPostList() = intent {
         getPostListUseCase()
             .onSuccess { postList ->
                 reduce {
@@ -33,7 +32,6 @@ class HomeViewModel @Inject constructor(
                 }
             }
             .onFailure {
-                Log.d("ERROR", "getPostList: ${it.message}")
                 reduce {
                     state.copy(
                         exception = it
@@ -52,7 +50,6 @@ class HomeViewModel @Inject constructor(
                 }
             }
             .onFailure {
-                Log.d("ERROR", "getImage: ${it.message}")
                 reduce {
                     state.copy(
                         exception = it
