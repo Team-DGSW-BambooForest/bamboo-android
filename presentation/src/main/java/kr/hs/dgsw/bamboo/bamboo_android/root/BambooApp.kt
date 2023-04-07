@@ -1,5 +1,8 @@
+@file:OptIn(ExperimentalMaterialApi::class, ExperimentalTextApi::class)
+
 package kr.hs.dgsw.bamboo.bamboo_android.root
 
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.tooling.preview.Preview
@@ -11,7 +14,6 @@ import kr.hs.dgsw.bamboo.bamboo_android.feature.create.CreateScreen
 import kr.hs.dgsw.bamboo.bamboo_android.feature.main.HomeScreen
 import kr.hs.dgsw.bamboo.bamboo_android.feature.search.SearchScreen
 
-@ExperimentalTextApi
 @Composable
 fun BambooApp() {
     BambooAndroidTheme {

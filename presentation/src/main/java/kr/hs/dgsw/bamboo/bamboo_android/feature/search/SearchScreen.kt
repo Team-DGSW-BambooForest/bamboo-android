@@ -37,6 +37,7 @@ import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import kr.hs.dgsw.bamboo.bamboo_android.R
 import kr.hs.dgsw.bamboo.bamboo_android.core.BackIcon
+import kr.hs.dgsw.bamboo.bamboo_android.core.SearchIcon
 import kr.hs.dgsw.bamboo.bamboo_android.core.component.BambooTopBar
 import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Background
 import kr.hs.dgsw.bamboo.bamboo_android.core.theme.BambooAndroidTheme
@@ -97,10 +98,9 @@ fun SearchScreen(
                         Spacer(modifier = Modifier.width(14.dp))
 
                         if (content.isEmpty()) {
-                            AsyncImage(
+                            SearchIcon(
                                 modifier = Modifier.size(24.dp),
-                                model = R.drawable.search_gray,
-                                contentDescription = null
+                                tint = Gray
                             )
 
                             Spacer(modifier = Modifier.width(4.dp))

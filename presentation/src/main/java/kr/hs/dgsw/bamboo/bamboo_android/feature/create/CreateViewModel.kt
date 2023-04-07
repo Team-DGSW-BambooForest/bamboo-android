@@ -17,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CreateViewModel @Inject constructor(
     private val createPostUseCase: CreatePostUseCase,
-    private val postImageUseCase: PostImageUseCase
+    private val postImageUseCase: PostImageUseCase,
 ) : ContainerHost<CreateState, CreateSideEffect>, ViewModel() {
 
     override val container = container<CreateState, CreateSideEffect>(CreateState())
@@ -25,14 +25,8 @@ class CreateViewModel @Inject constructor(
     fun createPost(
         content: String,
         image: MultipartBody.Part? = null,
-        hashTags: List<String> = emptyList()
     ) = intent {
-        createPostUseCase(
-            CreatePostParam(
-                content = content,
-                hashTags = hashTags
-            )
-        )
+        createPostUseCase(CreatePostParam(content))
             .onSuccess { postId ->
                 postSideEffect(CreateSideEffect.Toast("게시물 등록을 성공했습니다!"))
                 postSideEffect(CreateSideEffect.NavigateToHome)
@@ -43,7 +37,6 @@ class CreateViewModel @Inject constructor(
             }
             .onFailure {
                 reduce {
-                    Log.d("ERROR", "createPost: ${it.message}")
                     state.copy(
                         exception = it
                     )
@@ -53,7 +46,7 @@ class CreateViewModel @Inject constructor(
 
     private fun postImage(
         postId: Long,
-        image: MultipartBody.Part
+        image: MultipartBody.Part,
     ) = intent {
         postImageUseCase(postId, image)
             .onSuccess {
