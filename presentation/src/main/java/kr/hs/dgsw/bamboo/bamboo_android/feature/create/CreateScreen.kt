@@ -80,7 +80,7 @@ internal fun CreateScreen(
     var image by remember { mutableStateOf<MultipartBody.Part?>(null) }
     var bitmap by remember { mutableStateOf<Bitmap?>(null) }
 
-    val content = remember { mutableStateOf("") }
+    val content by remember { mutableStateOf("") }
 
     val takePhotoFromAlbumLauncher =
         rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -123,11 +123,12 @@ internal fun CreateScreen(
         bitmap = bitmap,
         scope = scope,
         content = content,
+        onValueChange = {},
         takePhotoFromAlbumLauncher = takePhotoFromAlbumLauncher,
         takePhotoFromCameraLauncher = takePhotoFromCameraLauncher,
         chooserIntent = chooserIntent
     ) {
-        createViewModel.createPost(content.value, image)
+        createViewModel.createPost(content, image)
     }
 }
 
@@ -142,7 +143,8 @@ internal fun CreateScreen(
     image: MultipartBody.Part? = null,
     bitmap: Bitmap? = null,
     scope: CoroutineScope,
-    content: MutableState<String>,
+    content: String,
+    onValueChange: (String) -> Unit,
     takePhotoFromAlbumLauncher: ManagedActivityResultLauncher<Intent, ActivityResult>,
     takePhotoFromCameraLauncher: ManagedActivityResultLauncher<Void?, Bitmap?>,
     chooserIntent: Intent,
@@ -243,8 +245,8 @@ internal fun CreateScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .focusRequester(focusRequester),
-                        value = content.value,
-                        onValueChange = { content.value = it },
+                        value = content,
+                        onValueChange = onValueChange,
                         colors = TextFieldDefaults.textFieldColors(
                             textColor = Black,
                             cursorColor = Green,
@@ -391,7 +393,8 @@ internal fun CreateScreenPreview() {
             interactionSource = MutableInteractionSource(),
             activity = Activity(),
             scope = CoroutineScope(Dispatchers.Unconfined),
-            content = remember { mutableStateOf("") },
+            content = "",
+            onValueChange = {},
             takePhotoFromAlbumLauncher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) {},
             takePhotoFromCameraLauncher = rememberLauncherForActivityResult(ActivityResultContracts.TakePicturePreview()) {},
             chooserIntent = Intent()
