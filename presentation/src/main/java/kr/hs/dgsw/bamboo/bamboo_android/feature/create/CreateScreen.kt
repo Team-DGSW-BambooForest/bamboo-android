@@ -20,12 +20,40 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.launch
-import androidx.compose.foundation.*
+import androidx.compose.foundation.ScrollState
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
-import androidx.compose.runtime.*
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.IconButton
+import androidx.compose.material.ModalBottomSheetState
+import androidx.compose.material.ModalBottomSheetValue
+import androidx.compose.material.Scaffold
+import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material.rememberModalBottomSheetState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -48,10 +76,22 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kr.hs.dgsw.bamboo.bamboo_android.R
-import kr.hs.dgsw.bamboo.bamboo_android.core.*
+import kr.hs.dgsw.bamboo.bamboo_android.core.BackIcon
+import kr.hs.dgsw.bamboo.bamboo_android.core.CameraIcon
+import kr.hs.dgsw.bamboo.bamboo_android.core.ImageIcon
 import kr.hs.dgsw.bamboo.bamboo_android.core.component.BambooBottomSheet
 import kr.hs.dgsw.bamboo.bamboo_android.core.component.BambooTopBar
-import kr.hs.dgsw.bamboo.bamboo_android.core.theme.*
+import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Aqua
+import kr.hs.dgsw.bamboo.bamboo_android.core.theme.BambooAndroidTheme
+import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Black
+import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Body1
+import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Body2
+import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Gray
+import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Green
+import kr.hs.dgsw.bamboo.bamboo_android.core.theme.LightGray
+import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Primary
+import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Subtitle1
+import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Subtitle2
 import kr.hs.dgsw.bamboo.bamboo_android.root.NavRoute
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -80,7 +120,7 @@ internal fun CreateScreen(
     var image by remember { mutableStateOf<MultipartBody.Part?>(null) }
     var bitmap by remember { mutableStateOf<Bitmap?>(null) }
 
-    val content by remember { mutableStateOf("") }
+    var content by remember { mutableStateOf("") }
 
     val takePhotoFromAlbumLauncher =
         rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -123,7 +163,7 @@ internal fun CreateScreen(
         bitmap = bitmap,
         scope = scope,
         content = content,
-        onValueChange = {},
+        onValueChange = { content = it },
         takePhotoFromAlbumLauncher = takePhotoFromAlbumLauncher,
         takePhotoFromCameraLauncher = takePhotoFromCameraLauncher,
         chooserIntent = chooserIntent
@@ -399,11 +439,9 @@ internal fun CreateScreenPreview() {
             takePhotoFromCameraLauncher = rememberLauncherForActivityResult(ActivityResultContracts.TakePicturePreview()) {},
             chooserIntent = Intent()
         ) {
-
         }
     }
 }
-
 
 private fun handleSideEffect(
     navController: NavController,

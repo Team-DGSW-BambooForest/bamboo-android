@@ -1,6 +1,5 @@
 package kr.hs.dgsw.bamboo.bamboo_android.feature.create
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kr.hs.dgsw.bamboo.domain.param.post.CreatePostParam

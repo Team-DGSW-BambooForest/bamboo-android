@@ -35,8 +35,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import coil.compose.AsyncImage
-import kr.hs.dgsw.bamboo.bamboo_android.R
 import kr.hs.dgsw.bamboo.bamboo_android.core.BackIcon
 import kr.hs.dgsw.bamboo.bamboo_android.core.SearchIcon
 import kr.hs.dgsw.bamboo.bamboo_android.core.component.BambooTopBar
