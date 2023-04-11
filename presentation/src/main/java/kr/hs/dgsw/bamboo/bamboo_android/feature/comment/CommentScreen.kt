@@ -2,7 +2,6 @@
 
 package kr.hs.dgsw.bamboo.bamboo_android.feature.comment
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -12,20 +11,17 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
-import kr.hs.dgsw.bamboo.bamboo_android.R
 import kr.hs.dgsw.bamboo.bamboo_android.core.BackIcon
 import kr.hs.dgsw.bamboo.bamboo_android.core.component.BambooTopBar
 import kr.hs.dgsw.bamboo.bamboo_android.core.component.TextFieldSurface
 import kr.hs.dgsw.bamboo.bamboo_android.core.theme.*
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import org.orbitmvi.orbit.compose.collectAsState
 
@@ -33,9 +29,13 @@ import org.orbitmvi.orbit.compose.collectAsState
 fun CommentScreen(
     navController: NavController,
     commentViewModel: CommentViewModel = hiltViewModel(),
+    postId: Long
 ) {
+    commentViewModel.getPostById(postId) // TODO : 안들고 오는 거 같은데
+
     val state = commentViewModel.collectAsState().value
     val comments = state.comments
+    val post = state.post
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -52,25 +52,28 @@ fun CommentScreen(
                     }
                 }
             ) {
-                Spacer(modifier = Modifier.padding(horizontal = 6.dp))
-                Image(
-                    modifier = Modifier.size(40.dp),
-                    painter = painterResource(id = R.drawable.profile),
+                Spacer(modifier = Modifier.width(12.dp))
+                AsyncImage(
+                    modifier = Modifier
+                        .size(40.dp)
+                        .clip(CircleShape),
+                    model = post?.profileImage,
                     contentDescription = null
                 )
-                Spacer(modifier = Modifier.padding(horizontal = 6.dp))
+                Spacer(modifier = Modifier.width(12.dp))
                 Column {
-                    Text(text = "익명이")
-                    Text(text = "2023.02.01", color = Color.LightGray)
+                    Subtitle2(text = post?.author.toString())
+                    Spacer(modifier = Modifier.height(3.dp))
+                    Number1(text = post?.createTime.toString())
                 }
             }
         }
     ) {
         Column {
-            Spacer(modifier = Modifier.padding(vertical = 4.dp))
-            Text(text = "민트초코? 치약 아님..? 왜 먹음? ㅠㅠ", modifier = Modifier.padding(horizontal = 14.dp))
-            Spacer(modifier = Modifier.padding(vertical = 8.dp))
-            Divider(color = Color.LightGray, thickness = 1.dp)
+            Spacer(modifier = Modifier.height(8.dp))
+            Body1(text = post?.content.toString(), modifier = Modifier.padding(horizontal = 14.dp))
+            Spacer(modifier = Modifier.height(16.dp))
+            Divider(color = LineGray, thickness = 1.dp)
             Spacer(modifier = Modifier.weight(1f))
             TextFieldSurface()
         }
@@ -85,7 +88,7 @@ fun CommentScreen(
                     modifier = Modifier.padding(start = 14.dp),
                     profileImage = comment.profileImage,
                     content = comment.content,
-                    createTime = comment.createdAt,
+                    createAt = comment.createdAt,
                     name = comment.writer,
                     contentImage = state.contentImage
                 ) {
@@ -101,7 +104,7 @@ fun CommentItem(
     modifier: Modifier = Modifier,
     profileImage: String,
     content: String,
-    createTime: String,
+    createAt: String,
     name: String,
     contentImage: String? = null,
     onClick: () -> Unit,
@@ -131,7 +134,7 @@ fun CommentItem(
                     Spacer(modifier = Modifier.padding(horizontal = 5.dp))
                     Text(text = "답글달기", fontSize = 10.sp)
                     Spacer(modifier = Modifier.padding(horizontal = 2.dp))
-                    Text(text = createTime, fontSize = 10.sp, color = TextGray2)
+                    Text(text = createAt, fontSize = 10.sp, color = TextGray2)
                 }
             }
         }
@@ -159,6 +162,6 @@ fun CommentContainer(
 @Composable
 @Preview(showBackground = true)
 fun Preview() {
-    val navController = rememberNavController()
-    CommentScreen(navController)
+//    val navController = rememberNavController()
+//    CommentScreen(navController)
 }

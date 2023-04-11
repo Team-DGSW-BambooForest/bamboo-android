@@ -35,7 +35,10 @@ fun BambooApp() {
                 HomeScreen(navController)
             }
             composable(Comment) {
-                CommentScreen(navController)
+
+                val postId = it.arguments?.getLong("postId") ?: 0
+
+                CommentScreen(postId = postId, navController = navController)
             }
         }
     }

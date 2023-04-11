@@ -127,14 +127,16 @@ fun HomeScreen(
                     }
                 ) { _, post ->
                     PostItem(
-                        modifier = Modifier.padding(top = 8.dp).clickable { navController.navigate(Comment) },
+                        modifier = Modifier.padding(top = 8.dp).clickable {
+                            navController.navigate("comment/${post.postId}")
+                        },
                         profileImage = post.profileImage,
                         name = post.author,
                         createTime = post.createTime,
                         content = post.content,
                         contentImage = state.contentImage,
                     ) {
-                        navController.navigate(Comment)
+                        navController.navigate("comment/${post.postId}")
                     }
                 }
             }

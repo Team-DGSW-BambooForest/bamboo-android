@@ -3,6 +3,9 @@ package kr.hs.dgsw.bamboo.data.repository
 import kr.hs.dgsw.bamboo.data.mapper.toEntity
 import kr.hs.dgsw.bamboo.data.mapper.toRequest
 import kr.hs.dgsw.bamboo.data.network.remote.PostRemoteDataSource
+import kr.hs.dgsw.bamboo.data.network.response.post.PostResponse
+import kr.hs.dgsw.bamboo.data.util.safeApiCall
+import kr.hs.dgsw.bamboo.domain.entity.post.Post
 import kr.hs.dgsw.bamboo.domain.entity.post.PostList
 import kr.hs.dgsw.bamboo.domain.param.post.CreatePostParam
 import kr.hs.dgsw.bamboo.domain.repository.PostRepository
@@ -17,4 +20,7 @@ class PostRepositoryImpl @Inject constructor(
 
     override suspend fun createPost(createPostParam: CreatePostParam): Long =
         remote.createPost(createPostParam.toRequest())
+
+    override suspend fun getPostById(id: Long): Post =
+        remote.getPostById(id).toEntity()
 }

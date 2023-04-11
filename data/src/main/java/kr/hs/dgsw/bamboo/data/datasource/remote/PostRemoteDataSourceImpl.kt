@@ -3,6 +3,7 @@ package kr.hs.dgsw.bamboo.data.datasource.remote
 import kr.hs.dgsw.bamboo.data.network.remote.PostRemoteDataSource
 import kr.hs.dgsw.bamboo.data.network.request.post.CreatePostRequest
 import kr.hs.dgsw.bamboo.data.network.response.post.PostListResponse
+import kr.hs.dgsw.bamboo.data.network.response.post.PostResponse
 import kr.hs.dgsw.bamboo.data.network.service.PostService
 import kr.hs.dgsw.bamboo.data.util.safeApiCall
 import javax.inject.Inject
@@ -17,5 +18,9 @@ class PostRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun createPost(createPostRequest: CreatePostRequest): Long = safeApiCall {
         api.createPost(createPostRequest)
+    }
+
+    override suspend fun getPostById(id: Long): PostResponse = safeApiCall {
+        api.getPostById(id)
     }
 }

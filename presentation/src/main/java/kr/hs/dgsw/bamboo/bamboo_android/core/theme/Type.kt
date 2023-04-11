@@ -19,6 +19,10 @@ val NotoSans = FontFamily(
     Font(R.font.notosans_regular, FontWeight.Normal)
 )
 
+val Roboto = FontFamily(
+    Font(R.font.roboto_regular, FontWeight.Normal)
+)
+
 @ExperimentalTextApi
 @Composable
 fun Body1(
@@ -121,6 +125,28 @@ fun Name1(
         color = textColor,
         fontFamily = NotoSans,
         fontWeight = FontWeight.Medium,
+        fontSize = 12.sp,
+        style = TextStyle(
+            platformStyle = PlatformTextStyle(
+                includeFontPadding = false
+            )
+        )
+    )
+}
+
+@ExperimentalTextApi
+@Composable
+fun Number1(
+    modifier: Modifier = Modifier,
+    text: String,
+    textColor: Color = TextGray2,
+) {
+    Text(
+        modifier = modifier,
+        text = text,
+        color = textColor,
+        fontFamily = Roboto,
+        fontWeight = FontWeight.Normal,
         fontSize = 12.sp,
         style = TextStyle(
             platformStyle = PlatformTextStyle(
