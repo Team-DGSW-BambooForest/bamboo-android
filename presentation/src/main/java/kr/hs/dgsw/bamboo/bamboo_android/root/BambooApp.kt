@@ -3,9 +3,11 @@ package kr.hs.dgsw.bamboo.bamboo_android.root
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import kr.hs.dgsw.bamboo.bamboo_android.core.theme.BambooAndroidTheme
 import kr.hs.dgsw.bamboo.bamboo_android.feature.comment.CommentScreen
 import kr.hs.dgsw.bamboo.bamboo_android.feature.create.CreateScreen
@@ -34,11 +36,20 @@ fun BambooApp() {
             composable(HomePostId) {
                 HomeScreen(navController)
             }
-            composable(Comment) {
+            composable(
+                route = Comment,
+                arguments = listOf(
+                    navArgument("postId") {
+                        defaultValue = 0
+                        type = NavType.LongType
+                    }
+                )
+            ) {
+                val postId = it.arguments?.getLong("postId")
 
-                val postId = it.arguments?.getLong("postId") ?: 0
-
-                CommentScreen(postId = postId, navController = navController)
+                postId?.let {
+                    CommentScreen(postId = postId, navController = navController)
+                }
             }
         }
     }

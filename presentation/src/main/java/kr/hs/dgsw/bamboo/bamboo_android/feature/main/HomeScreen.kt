@@ -5,6 +5,7 @@
 package kr.hs.dgsw.bamboo.bamboo_android.feature.main
 
 import android.app.Activity
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -127,15 +128,19 @@ fun HomeScreen(
                     }
                 ) { _, post ->
                     PostItem(
-                        modifier = Modifier.padding(top = 8.dp).clickable {
-                            navController.navigate("comment/${post.postId}")
-                        },
+                        modifier = Modifier
+                            .padding(top = 8.dp)
+                            .clickable {
+                                Log.d("TEST123", "HomeScreen: ${post.postId}")
+                                navController.navigate("comment/${post.postId}")
+                            },
                         profileImage = post.profileImage,
                         name = post.author,
                         createTime = post.createTime,
                         content = post.content,
                         contentImage = state.contentImage,
                     ) {
+                        Log.d("TEST123", "HomeScreen: ${post.postId}")
                         navController.navigate("comment/${post.postId}")
                     }
                 }

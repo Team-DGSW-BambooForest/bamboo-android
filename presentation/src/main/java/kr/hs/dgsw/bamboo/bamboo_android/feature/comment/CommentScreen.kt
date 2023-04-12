@@ -21,7 +21,6 @@ import kr.hs.dgsw.bamboo.bamboo_android.core.component.BambooTopBar
 import kr.hs.dgsw.bamboo.bamboo_android.core.component.TextFieldSurface
 import kr.hs.dgsw.bamboo.bamboo_android.core.theme.*
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import org.orbitmvi.orbit.compose.collectAsState
 
