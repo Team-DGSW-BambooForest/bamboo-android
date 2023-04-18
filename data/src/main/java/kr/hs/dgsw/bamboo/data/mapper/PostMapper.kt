@@ -23,5 +23,4 @@ fun PostResponse.toEntity() = Post(
 
 fun CreatePostParam.toRequest() = CreatePostRequest(
     content = this.content,
-    hashTags = this.hashTags
 )

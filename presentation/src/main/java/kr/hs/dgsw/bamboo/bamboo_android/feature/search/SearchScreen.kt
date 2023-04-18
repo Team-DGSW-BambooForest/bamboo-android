@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActionScope
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.IconButton
@@ -34,17 +35,17 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import coil.compose.AsyncImage
-import kr.hs.dgsw.bamboo.bamboo_android.R
 import kr.hs.dgsw.bamboo.bamboo_android.core.BackIcon
+import kr.hs.dgsw.bamboo.bamboo_android.core.SearchIcon
 import kr.hs.dgsw.bamboo.bamboo_android.core.component.BambooTopBar
+import kr.hs.dgsw.bamboo.bamboo_android.core.component.PostCard
 import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Background
 import kr.hs.dgsw.bamboo.bamboo_android.core.theme.BambooAndroidTheme
 import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Black
 import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Body1
 import kr.hs.dgsw.bamboo.bamboo_android.core.theme.Gray
 import kr.hs.dgsw.bamboo.bamboo_android.core.theme.LightGray
-import kr.hs.dgsw.bamboo.bamboo_android.feature.main.PostItem
+import kr.hs.dgsw.bamboo.domain.entity.post.Post
 import org.orbitmvi.orbit.compose.collectAsState
 
 @Composable
@@ -57,6 +58,26 @@ fun SearchScreen(
 
     var content by remember { mutableStateOf("") }
 
+    SearchScreen(
+        navController = navController,
+        postList = postList,
+        content = content,
+        onValueChange = { content = it },
+        onClickSearch = {
+            searchViewModel.searchPost(content)
+        }
+    )
+}
+
+@Composable
+internal fun SearchScreen(
+    navController: NavController,
+    postList: List<Post>?,
+    content: String,
+    onValueChange: (String) -> Unit,
+    contentImage: String? = null,
+    onClickSearch: KeyboardActionScope.() -> Unit
+) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         backgroundColor = Color.White,
@@ -83,12 +104,10 @@ fun SearchScreen(
                             shape = RoundedCornerShape(15.dp)
                         ),
                     value = content,
-                    onValueChange = { content = it },
+                    onValueChange = onValueChange,
                     singleLine = true,
                     keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Search),
-                    keyboardActions = KeyboardActions(onSearch = {
-                        searchViewModel.searchPost(content)
-                    })
+                    keyboardActions = KeyboardActions(onSearch = onClickSearch)
                 ) {
                     Row(
                         modifier = Modifier.padding(0.dp),
@@ -97,10 +116,9 @@ fun SearchScreen(
                         Spacer(modifier = Modifier.width(14.dp))
 
                         if (content.isEmpty()) {
-                            AsyncImage(
+                            SearchIcon(
                                 modifier = Modifier.size(24.dp),
-                                model = R.drawable.search_gray,
-                                contentDescription = null
+                                tint = Gray
                             )
 
                             Spacer(modifier = Modifier.width(4.dp))
@@ -132,13 +150,13 @@ fun SearchScreen(
                     post.postId
                 }
             ) { _, post ->
-                PostItem(
+                PostCard(
                     modifier = Modifier.padding(top = 8.dp),
                     profileImage = post.profileImage,
                     name = post.author,
                     createTime = post.createTime,
                     content = post.content,
-                    contentImage = state.contentImage
+                    contentImage = contentImage
                 ) {
                 }
             }
@@ -146,11 +164,16 @@ fun SearchScreen(
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
-fun SearchScreenPreview() {
-    val navController = rememberNavController()
+internal fun SearchScreenPreview() {
     BambooAndroidTheme {
-        SearchScreen(navController = navController)
+        SearchScreen(
+            navController = rememberNavController(),
+            postList = emptyList(),
+            content = "",
+            onValueChange = {},
+            onClickSearch = {}
+        )
     }
 }

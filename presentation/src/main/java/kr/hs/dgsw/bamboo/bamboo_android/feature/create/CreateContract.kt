@@ -10,6 +10,5 @@ data class CreateState(
 
 sealed class CreateSideEffect {
     object NavigateToHome : CreateSideEffect()
-//    object SuccessCreateEvent : CreateSideEffect()
     data class Toast(val text: String) : CreateSideEffect()
 }
