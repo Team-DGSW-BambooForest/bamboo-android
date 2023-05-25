@@ -1,4 +1,4 @@
-package kr.hs.dgsw.bamboo.data.database.prefs
+package kr.hs.dgsw.bamboo.bamboo_android.util
 
 import android.content.Context
 import android.content.SharedPreferences
