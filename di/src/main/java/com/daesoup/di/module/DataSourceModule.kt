@@ -1,28 +1,23 @@
-package kr.hs.dgsw.bamboo.bamboo_android.di
+package com.daesoup.di.module
 
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kr.hs.dgsw.bamboo.data.datasource.remote.PostRemoteDataSourceImpl
 import kr.hs.dgsw.bamboo.data.datasource.remote.UploadRemoteDataSourceImpl
 import kr.hs.dgsw.bamboo.data.network.remote.PostRemoteDataSource
 import kr.hs.dgsw.bamboo.data.network.remote.UploadRemoteDataSource
-import kr.hs.dgsw.bamboo.data.network.service.PostService
-import kr.hs.dgsw.bamboo.data.network.service.UploadService
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object DataSourceModule {
+abstract class DataSourceModule {
 
-    @Provides
+    @Binds
     @Singleton
-    fun providePostRemoteDataSource(api: PostService): PostRemoteDataSource =
-        PostRemoteDataSourceImpl(api)
-
-    @Provides
+    abstract fun bindPostRemoteDataSource(postRemoteDataSourceImpl: PostRemoteDataSourceImpl): PostRemoteDataSource
+    @Binds
     @Singleton
-    fun provideUploadRemoteDataSource(api: UploadService): UploadRemoteDataSource =
-        UploadRemoteDataSourceImpl(api)
+    abstract fun bindUploadRemoteDataSource(uploadRemoteDataSourceImpl: UploadRemoteDataSourceImpl): UploadRemoteDataSource
 }

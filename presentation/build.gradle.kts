@@ -91,5 +91,5 @@ dependencies {
     testImplementation(OrbitMVI.ORBIT_TEST)
 
     implementation(project(AppConfig.domain))
-    implementation(project(AppConfig.data))
+    implementation(project(AppConfig.di))
 }
