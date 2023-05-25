@@ -57,7 +57,6 @@ dependencies {
     implementation(Compose.COMPOSE_UI)
     implementation(Compose.UI_TOOLING_PREVIEW)
     implementation(AndroidX.MATERIAL)
-    implementation(project(mapOf("path" to ":data")))
     testImplementation(Test.JUNIT)
     androidTestImplementation(AndroidTest.ANDROID_JUNIT)
     androidTestImplementation(AndroidTest.ESPRESSO_CORE)
