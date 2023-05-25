@@ -28,11 +28,7 @@ android {
 }
 
 dependencies {
-
-    implementation(AndroidX.CORE_KTX)
     testImplementation(Test.JUNIT)
-    androidTestImplementation(AndroidTest.ANDROID_JUNIT)
-    androidTestImplementation(AndroidTest.ESPRESSO_CORE)
 
     // Coroutines
     implementation(Coroutines.COROUTINE_CORE)

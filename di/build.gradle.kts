@@ -30,12 +30,9 @@ android {
 dependencies {
 
     implementation(AndroidX.CORE_KTX)
-    testImplementation(org.gradle.api.tasks.testing.Test.JUNIT)
+    testImplementation(Test.JUNIT)
     androidTestImplementation(AndroidTest.ANDROID_JUNIT)
     androidTestImplementation(AndroidTest.ESPRESSO_CORE)
-
-    // Coroutines
-    implementation(Coroutines.COROUTINE_CORE)
 
     // Dagger-Hilt
     implementation(Hilt.HILT_ANDROID)
@@ -46,4 +43,7 @@ dependencies {
     implementation(Retrofit.RETROFIT_GSON_CONVERTER)
     implementation(Retrofit.OKHTTP)
     implementation(Retrofit.OKHTTP_LOGGING_INTERCEPTOR)
+
+    implementation(project(AppConfig.domain))
+    implementation(project(AppConfig.data))
 }

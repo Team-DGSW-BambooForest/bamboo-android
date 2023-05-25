@@ -1,11 +1,10 @@
-package kr.hs.dgsw.bamboo.bamboo_android.di
+package com.daesoup.di.module
 
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kr.hs.dgsw.bamboo.bamboo_android.util.BambooApplication
 import kr.hs.dgsw.bamboo.data.network.service.PostService
 import kr.hs.dgsw.bamboo.data.network.service.UploadService
 import kr.hs.dgsw.bamboo.data.network.url.BambooUrl
@@ -34,7 +33,6 @@ object NetworkModule {
     @Singleton
     @Provides
     fun provideOkHttpClient(
-        headerInterceptor: Interceptor,
         LoggerInterceptor: HttpLoggingInterceptor,
     ): OkHttpClient {
 
@@ -42,7 +40,6 @@ object NetworkModule {
         okHttpClientBuilder.connectTimeout(60, TimeUnit.SECONDS)
         okHttpClientBuilder.readTimeout(60, TimeUnit.SECONDS)
         okHttpClientBuilder.writeTimeout(60, TimeUnit.SECONDS)
-        okHttpClientBuilder.addInterceptor(headerInterceptor)
         okHttpClientBuilder.addInterceptor(LoggerInterceptor)
 
         return okHttpClientBuilder.build()
@@ -67,15 +64,4 @@ object NetworkModule {
     @Singleton
     fun provideLoggingInterceptor(): HttpLoggingInterceptor =
         HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
-
-    @Provides
-    @Singleton
-    fun provideHeaderInterceptor() = Interceptor { chain ->
-        with(chain) {
-            val newRequest = request().newBuilder()
-                .addHeader("Authorization", "Bearer ${BambooApplication.prefs.accessToken}")
-                .build()
-            proceed(newRequest)
-        }
-    }
 }

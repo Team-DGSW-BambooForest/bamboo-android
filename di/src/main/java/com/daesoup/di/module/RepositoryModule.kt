@@ -1,5 +1,6 @@
-package kr.hs.dgsw.bamboo.bamboo_android.di
+package com.daesoup.di.module
 
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,15 +15,13 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object RepositoryModule {
+abstract class RepositoryModule {
 
-    @Provides
+    @Binds
     @Singleton
-    fun providePostRepository(remote: PostRemoteDataSource): PostRepository =
-        PostRepositoryImpl(remote)
+    abstract fun bindPostRepository(postRepositoryImpl: PostRepositoryImpl): PostRepository
 
-    @Provides
+    @Binds
     @Singleton
-    fun provideUploadRepository(remote: UploadRemoteDataSource): UploadRepository =
-        UploadRepositoryImpl(remote)
+    abstract fun bindUploadRepository(uploadRepositoryImpl: UploadRepositoryImpl): UploadRepository
 }

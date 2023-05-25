@@ -21,4 +21,5 @@ object AppConfig {
 
     const val domain = ":domain"
     const val data = ":data"
+    const val di = ":di"
 }
