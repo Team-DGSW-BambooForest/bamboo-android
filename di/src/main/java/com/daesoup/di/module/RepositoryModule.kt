@@ -2,11 +2,8 @@ package com.daesoup.di.module
 
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kr.hs.dgsw.bamboo.data.network.remote.PostRemoteDataSource
-import kr.hs.dgsw.bamboo.data.network.remote.UploadRemoteDataSource
 import kr.hs.dgsw.bamboo.data.repository.PostRepositoryImpl
 import kr.hs.dgsw.bamboo.data.repository.UploadRepositoryImpl
 import kr.hs.dgsw.bamboo.domain.repository.PostRepository

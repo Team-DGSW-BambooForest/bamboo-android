@@ -8,7 +8,6 @@ import dagger.hilt.components.SingletonComponent
 import kr.hs.dgsw.bamboo.data.network.service.PostService
 import kr.hs.dgsw.bamboo.data.network.service.UploadService
 import kr.hs.dgsw.bamboo.data.network.url.BambooUrl
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
