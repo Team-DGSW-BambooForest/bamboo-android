@@ -2,6 +2,12 @@
 <resources>
 
     <style name="Theme.BambooAndroid" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:statusBarColor">@android:color/secondary_text_dark</item>
+
+        <item name="colorPrimary">@color/aqua</item>
+        <item name="colorPrimaryVariant">@color/green</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 </resources>

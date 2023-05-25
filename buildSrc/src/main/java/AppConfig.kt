@@ -18,6 +18,7 @@ object AppConfig {
     const val compose = true
     const val kotlinCompilerVersion = "1.1.1"
     const val packagingOption = "/META-INF/{AL2.0,LGPL2.1}"
+    const val dataBinding = true
 
     const val domain = ":domain"
     const val data = ":data"

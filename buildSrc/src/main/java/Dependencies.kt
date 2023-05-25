@@ -1,8 +1,13 @@
 object AndroidX {
     const val CORE_KTX = "androidx.core:core-ktx:${Versions.CORE_KTX}"
     const val LIFECYCLE = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.LIFECYCLE}"
+
     const val ACTIVITY_COMPOSE = "androidx.activity:activity-compose:${Versions.COMPOSE}"
-    const val MATERIAL = "androidx.compose.material:material:${Versions.MATERIAL}"
+    const val COMPOSE_MATERIAL = "androidx.compose.material:material:${Versions.COMPOSE_MATERIAL}"
+
+    const val APP_COMPAT = "androidx.appcompat:appcompat:${Versions.APP_COMPAT}"
+    const val MATERIAL = "com.google.android.material:material:${Versions.MATERIAL}"
+    const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:${Versions.CONSTRAINT_LAYOUT}"
 }
 
 object Compose {
