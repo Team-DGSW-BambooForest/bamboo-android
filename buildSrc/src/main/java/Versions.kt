@@ -33,9 +33,6 @@ object Versions {
     // Coroutines
     const val COROUTINES = "1.6.4"
 
-    // Jetpack Navigation
-    const val NAVIGATION_COMPOSE = "2.5.3"
-
     // Dagger-Hilt
     const val HILT = "2.44"
     const val HILT_NAVIGATION = "1.0.0"

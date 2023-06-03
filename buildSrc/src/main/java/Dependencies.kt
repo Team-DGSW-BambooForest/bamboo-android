@@ -34,7 +34,8 @@ object Coroutines {
 }
 
 object Navigation {
-    const val NAVIGATION_COMPOSE = "androidx.navigation:navigation-compose:${Versions.NAVIGATION_COMPOSE}"
+    const val NAVIGATION_COMPOSE = "androidx.navigation:navigation-compose:${Versions.NAVIGATION}"
+    const val NAVIGATION_FRAGMENT = "androidx.navigation:navigation-fragment:${Versions.NAVIGATION}"
 }
 
 object Hilt {
@@ -45,6 +46,10 @@ object Hilt {
 
 object Coil {
     const val COIL_COMPOSE = "io.coil-kt:coil-compose:${Versions.COIL}"
+}
+
+object Glide {
+    const val GLIDE = "com.github.bumptech.glide:glide:${Versions.GLIDE}"
 }
 
 object Retrofit {

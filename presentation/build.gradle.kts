@@ -36,12 +36,6 @@ android {
     kotlinOptions {
         jvmTarget = AppConfig.jvmTarget
     }
-    buildFeatures {
-        compose = AppConfig.compose
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = AppConfig.kotlinCompilerVersion
-    }
     packagingOptions {
         resources {
             excludes += AppConfig.packagingOption
@@ -61,6 +55,8 @@ dependencies {
     implementation(AndroidX.MATERIAL)
     implementation(AndroidX.CONSTRAINT_LAYOUT)
 
+    implementation(Navigation.NAVIGATION_FRAGMENT)
+
     testImplementation(Test.JUNIT)
     androidTestImplementation(AndroidTest.ANDROID_JUNIT)
     androidTestImplementation(AndroidTest.ESPRESSO_CORE)
@@ -71,13 +67,15 @@ dependencies {
     // Dagger-Hilt
     implementation(Hilt.HILT_ANDROID)
     kapt(Hilt.HILT_COMPILER)
-    implementation(Hilt.HILT_NAVIGATION)
 
     // Retrofit2
     implementation(Retrofit.RETROFIT)
     implementation(Retrofit.RETROFIT_GSON_CONVERTER)
     implementation(Retrofit.OKHTTP)
     implementation(Retrofit.OKHTTP_LOGGING_INTERCEPTOR)
+
+    // Glide
+    implementation(Glide.GLIDE)
 
     implementation(project(AppConfig.domain))
     implementation(project(AppConfig.di))
