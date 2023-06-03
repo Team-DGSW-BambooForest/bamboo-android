@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">대대숲</string>
+    <string name="bamboo_forest">대대숲</string>
+    <string name="profile">프로필</string>
+    <string name="plus">플러스</string>
+    <string name="search">검색</string>
+    <string name="anonymous">익명이</string>
+    <string name="image">이미지</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

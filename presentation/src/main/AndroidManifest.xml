@@ -2,28 +2,28 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
-
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA"
+        tools:ignore="PermissionImpliesUnsupportedChromeOsHardware" />
 
     <application
         android:name=".util.BambooApplication"
         android:allowBackup="true"
-        android:usesCleartextTraffic="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_bamboo"
-        android:label="@string/app_name"
+        android:label="@string/bamboo_forest"
         android:roundIcon="@mipmap/ic_bamboo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BambooAndroid"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".root.MainActivity"
-            android:windowSoftInputMode="adjustResize"
+            android:name=".feature.main.MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.BambooAndroid">
+            android:theme="@style/Theme.BambooAndroid"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
