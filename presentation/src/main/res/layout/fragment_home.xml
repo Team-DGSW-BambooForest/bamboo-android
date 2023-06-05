@@ -28,7 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/bamboo_forest"
-                android:src="@drawable/logo"
+                android:src="@drawable/ic_logo"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -40,7 +40,7 @@
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/profile"
                 android:scaleType="centerCrop"
-                android:src="@drawable/profile"
+                android:src="@drawable/ic_profile"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -52,7 +52,7 @@
                 android:layout_marginEnd="10dp"
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/plus"
-                android:src="@drawable/plus"
+                android:src="@drawable/ic_plus"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/ib_profile"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -64,7 +64,7 @@
                 android:layout_marginEnd="10dp"
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/search"
-                android:src="@drawable/search"
+                android:src="@drawable/ic_search"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/ib_add"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -75,12 +75,12 @@
             android:id="@+id/rv_post"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            tools:listitem="@layout/item_post"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/top_bar" />
+            app:layout_constraintTop_toBottomOf="@+id/top_bar"
+            tools:listitem="@layout/item_post" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
